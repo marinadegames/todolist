@@ -1,6 +1,13 @@
-# ToDo list 
+# 📝 To Do List \ Web-application #
+## ♻️ It-Incubator | TypeScript ##
+### ❓ What's this app? ###
+This repository for my 'Todo list' application. 
 
-###it's my todo-list project
+#### Update: ####
+💡 `v0.0.1` - Lesson `01` | Create app | Add task-array  
+📦 `v0.0.2` - Lesson `02` is coming...
 
-`01` create  
-`02` ...
+
+
+### 🙃 Good luck for me! ###
+### `🚀 vjuuuuuuhhhhhhhhh 🚀` ###
