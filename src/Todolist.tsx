@@ -1,42 +1,53 @@
-import React from "react";
+import React from 'react';
 
-
-type PropsType={
-    title: string,
-    task: Array<InArray>
-}
-
-type InArray={
+type TaskType = {
     id: number
     title: string
     isDone: boolean
+
 }
 
-export const Todolist = (props: PropsType) => {
+type PropsType = {
+    title: string
+    tasks: Array<TaskType>
+    removeTask: (id:number) => void
+    filteredTasks: (value:string) => void
+}
 
-    return(
+
+export function Todolist(props: PropsType) {
+
+
+
+    return <div>
+        <h3>{props.title}</h3>
         <div>
-            <h3>{props.title}</h3>
-            <div>
-                <input/>
-                <button>+</button>
-            </div>
-            <ul>
-                {props.task.map(value => {
-                    debugger
-                    return(
-                        <li key={value.id}><input type="checkbox" checked={value.isDone}/> <span>{value.title}</span></li>
-                    )
-                })}
-                {/*<li><input type="checkbox" checked={props.task[0].isDone}/> <span>{props.task[0].title}</span></li>*/}
-                {/*<li><input type="checkbox" checked={props.task[1].isDone}/> <span>{props.task[1].title}</span></li>*/}
-                {/*<li><input type="checkbox" checked={props.task[2].isDone}/> <span>{props.task[2].title}</span></li>*/}
-            </ul>
-            <div>
-                <button>All</button>
-                <button>Active</button>
-                <button>Completed</button>
-            </div>
+            <input/>
+            <button>+</button>     
         </div>
-    )
+        <ul>
+
+            {props.tasks.map( (t) => {
+                return(
+                    <li key={t.id}>
+
+                        <input type="checkbox"
+                               checked={t.isDone}/>
+                        <span>{t.title}</span>
+                        <button onClick={ () => props.removeTask(t.id)}>
+                            x
+                        </button>
+                    </li>
+                )
+            })}
+
+        </ul>
+        <div>
+
+
+            <button onClick={ () => props.filteredTasks('ALL')}>All</button>
+            <button onClick={ () => props.filteredTasks('ACTIVE')}>Active</button>
+            <button onClick={ () => props.filteredTasks('COMPLETED')}>Completed</button>
+        </div>
+    </div>
 }
