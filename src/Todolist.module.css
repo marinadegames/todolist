@@ -1,0 +1,39 @@
+.tasks{
+    padding: 0 0 0 1rem;
+    margin: 1rem 0 1rem 0;
+}
+.tasks button{
+    cursor: pointer;
+}
+
+.btnAddTask{
+    cursor: pointer;
+    background-color: #1ad672;
+    font-weight: 600;
+}
+.addTaskForm{
+    margin: 0 0 1rem 0;
+}
+
+/*  BUTTONS   */
+
+.btnAll{
+    cursor: pointer;
+    background-color: skyblue;
+    margin: 0 0.5rem 0 0;
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+}
+
+.btnActive{
+    cursor: pointer;
+    background-color: #e7a0b0;
+    margin: 0 0.5rem 0 0;
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+}
+
+.btnCompleted{
+    cursor: pointer;
+    background-color: #41ab7c;
+    margin: 0 0.5rem 0 0;
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+}
