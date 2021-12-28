@@ -5,8 +5,8 @@ This repository for my 'Todo list' application.
 
 #### Update: ####
 💡 Lesson `01` - create app | Add `task-array`   
-📦 Lesson `02` - add `hooks`  
-🆔 Lesson `03` - add `uuid` | added to ability to `add tasks` | You can use press `Enter` for add tasks
-
+📦 Lesson `02` - added `hooks`  
+🆔 Lesson `03` - added `uuid` | added to ability to `add tasks` | You can use press `Enter` for add tasks
+☑️Lesson `04` - added `change checkbox` | added `change styles` input 
 ### 🙃 Good luck for me! ###
 ### `🚀 vjuuuuuuhhhhhhhhh 🚀` ###

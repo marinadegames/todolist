@@ -22,12 +22,14 @@ function App() {
         setTasks(tasks.filter(t => t.id !== id))
     }
 
-    const [filterValue, setFilterValue] = useState('all')
+    const [filterValue, setFilterValue] = useState('ALL')
 
     let isDoneTrue = tasks;
 
     if (filterValue === 'ACTIVE') {
         isDoneTrue = tasks.filter(t => t.isDone)
+
+
     } else if (filterValue === 'COMPLETED') {
         isDoneTrue = tasks.filter(t => !t.isDone)
     }
@@ -35,11 +37,15 @@ function App() {
     const filteredTasks = (value: FilterType) => {
         setFilterValue(value)
     }
-
     const addTask = (title:string) => {
         let newTask = { id: v1(), title: title, isDone: false }
         let newTasks = [newTask, ...tasks]
         setTasks(newTasks)
+    }
+
+    const changeCheckBoxValue = (id: string, value: boolean) => {
+        setTasks(tasks.map( m => m.id === id ? {...m, isDone: value} : m))
+        console.log(value)
     }
 
     return (
@@ -50,7 +56,9 @@ function App() {
                       tasks={isDoneTrue}
                       removeTask={removeTask}
                       addTask={addTask}
+                      filterValue={filterValue}
                       filteredTasks={filteredTasks}
+                      changeCheckBoxValue={changeCheckBoxValue}
             />
         </div>
     );
