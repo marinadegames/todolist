@@ -1,34 +1,31 @@
-
-html {
-  background-color: grey;
-  color: white;
+body{
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently */
 }
-
-
-
 .App {
   padding: 30px;
   display: flex;
-
 }
 
 .App > div {
   margin-right: 50px;
 }
 
-.is-done {
-  opacity:0.3;
+.error {
+  border: red 1px solid;
 }
 
+.error-message {
+  color: red;
+}
 
 .active-filter {
-  background-color: cadetblue;
+  background-color: aquamarine;
 }
 
-.error {
-  border: 2px solid red;
-  outline: none;
-  background-color: rgba(161, 26, 26, 0.3);
+.is-done {
+  opacity: 0.5;
 }
-
-
