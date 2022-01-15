@@ -10,7 +10,7 @@
 🆔 Lesson `03` - added `uuid` | added to ability to `add tasks` | You can use press `Enter` for add tasks  
 ☑️ Lesson `04` - added `change checkbox` | added `change styles` input      
 ➕️ Lesson `05` - added the ability `delete ToDo List` | refactor code  
-📝️ Lesson `06` - added the ability `change name ToDo lists`. Added `universal component`  ||HAVE PROPBLEMS
+📝️ Lesson `06` - added the ability `change name ToDo lists`. Added `universal component`  \\ added `допы`  
 
 ### 🙃 Good luck for me! ###
 ### `🚀 vjuuuuuuhhhhhhhhh 🚀` ###

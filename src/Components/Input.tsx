@@ -1,31 +1,30 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 
-
 type propsType = {
-    addItem: (title: string) => void
+    callback: (newTitle: string) => void
 }
 
-export const AddItemForm = (props: propsType) => {
+export const Input = (props: propsType) => {
 
     let [title, setTitle] = useState("")
     let [error, setError] = useState<string | null>(null)
 
-    const addItem = () => {
-        let newTitle = title.trim();
-        if (newTitle !== "") {
-            props.addItem(title);
-            setTitle("");
-        } else {
-            setError("Title is required");
-        }
-    }
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         setError(null);
         if (e.charCode === 13) {
-            addItem();
+            addTask();
+        }
+    }
+    const addTask = () => {
+        let newTitle = title.trim();
+        if (newTitle !== "") {
+            props.callback(newTitle);
+            setTitle("");
+        } else {
+            setError("Title is required");
         }
     }
 
@@ -36,7 +35,7 @@ export const AddItemForm = (props: propsType) => {
                    onKeyPress={onKeyPressHandler}
                    className={error ? "error" : ""}
             />
-            <button onClick={addItem}>+</button>
+            <button onClick={addTask}>+</button>
             {error && <div className="error-message">{error}</div>}
         </div>
     )
