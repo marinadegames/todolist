@@ -65,7 +65,7 @@ export function Todolist(props: PropsType) {
                 props.tasks.map(t => {
 
 
-                    return <li key={t.id} className={t.isDone ? "is-done" : ""}>
+                    return <div key={t.id} className={t.isDone ? "is-done" : ""}>
                         <Checkbox
                             onChange={(e) => onChangeHandlerFromCheckBox(e, t.id)}
                             checked={t.isDone}/>
@@ -77,7 +77,7 @@ export function Todolist(props: PropsType) {
 
                                       callback={() => onClickHandler(t.id)}/>
 
-                    </li>
+                    </div>
                 })
             }
         </ul>
