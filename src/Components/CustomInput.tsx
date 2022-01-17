@@ -1,10 +1,13 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import {Button, Input, TextField} from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
 
 type propsType = {
     callback: (newTitle: string) => void
+    label: string
 }
 
-export const Input = (props: propsType) => {
+export const CustomInput = (props: propsType) => {
 
     let [title, setTitle] = useState("")
     let [error, setError] = useState<string | null>(null)
@@ -30,13 +33,17 @@ export const Input = (props: propsType) => {
 
     return (
         <div>
-            <input value={title}
-                   onChange={onChangeHandler}
-                   onKeyPress={onKeyPressHandler}
-                   className={error ? "error" : ""}
+            <TextField value={title}
+                       variant={'outlined'}
+                       onChange={onChangeHandler}
+                       onKeyPress={onKeyPressHandler}
+                       error={!!error}
+                       label={error ? "Error" : props.label}
+                       helperText={error}
             />
-            <button onClick={addTask}>+</button>
-            {error && <div className="error-message">{error}</div>}
+            <Button onClick={addTask} variant="outlined" color='primary'>
+                <AddIcon/>
+            </Button>
         </div>
     )
 }

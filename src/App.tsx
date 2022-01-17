@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import './App.css';
-import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
-import {Input} from "./Components/Input";
+import {CustomInput} from "./Components/CustomInput";
+import {TaskType, Todolist} from "./TodoList";
 
 export type FilterValuesType = "all" | "active" | "completed";
 type TodolistType = {
@@ -28,11 +28,11 @@ function App() {
     let [tasks, setTasks] = useState<TasksStateType>({
         [todolistId1]: [
             {id: v1(), title: "HTML&CSS", isDone: true},
-            {id: v1(), title: "JS", isDone: true}
+            {id: v1(), title: "JS", isDone: false}
         ],
         [todolistId2]: [
             {id: v1(), title: "Milk", isDone: true},
-            {id: v1(), title: "React Book", isDone: true}
+            {id: v1(), title: "React Book", isDone: false}
         ]
     });
 
@@ -103,7 +103,7 @@ function App() {
 
     return (
         <div className="App">
-            <Input callback={callbackHandlerAddToDoList}/>
+            <CustomInput label={'add ToDo list'} callback={callbackHandlerAddToDoList}/>
             {
                 todolists.map(tl => {
                     let allTodolistTasks = tasks[tl.id];
