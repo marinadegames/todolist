@@ -3,7 +3,7 @@ import {FilterValuesType} from './App';
 import {CustomButton} from "./Components/CustomButton";
 import {EditableSpan} from "./Components/EditableSpan";
 import {CustomInput} from "./Components/CustomInput";
-import {Button, Checkbox} from "@mui/material";
+import {Button, ButtonGroup, Checkbox, FormGroup, Grid, List, ListItem} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 
 export type TaskType = {
@@ -53,50 +53,56 @@ export function Todolist(props: PropsType) {
         props.addTask(newTitle, props.id)
     }
 
-    return <div>
-        <h3>
-            <EditableSpan title={props.title}
-                          callback={(title) => callBackHandlerForEditableSpanForHeader(title)}/>
-            <CustomButton name={''} callback={removeTodolist}/>
-        </h3>
-        <CustomInput callback={callbackHandlerForInput} label={'add task'}/>
-        <ul>
-            {
-                props.tasks.map(t => {
-
-
-                    return <div key={t.id} className={t.isDone ? "is-done" : ""}>
-                        <Checkbox
-                            onChange={(e) => onChangeHandlerFromCheckBox(e, t.id)}
-                            checked={t.isDone}/>
-                        {/*<span>{t.title}</span>*/}
-                        <EditableSpan title={t.title}
-                                      callback={(title) => callBackHandlerForEditableSpan(t.id, title)}/>
-                        {/*<button onClick={onClickHandler}>x</button>*/}
-                        <CustomButton name={''}
-
-                                      callback={() => onClickHandler(t.id)}/>
-
-                    </div>
-                })
-            }
-        </ul>
+    return (
         <div>
-            <Button variant={props.filter === 'all' ? "contained" : "text"}
-                    onClick={onAllClickHandler}>All
-            </Button>
-            <Button color={'primary'}
-                    variant={props.filter === 'active' ? "contained" : "text"}
-                    className={props.filter === 'active' ? "active-filter" : ""}
-                    onClick={onActiveClickHandler}>Active
-            </Button>
-            <Button color={'secondary'}
-                    variant={props.filter === 'completed' ? "contained" : "text"}
-                    className={props.filter === 'completed' ? "active-filter" : ""}
-                    onClick={onCompletedClickHandler}>Completed
-            </Button>
+            <h2 style={{padding: '0', margin: '0'}}>
+                <EditableSpan title={props.title}
+                              callback={(title) => callBackHandlerForEditableSpanForHeader(title)}/>
+                <CustomButton name={''} callback={removeTodolist}/>
+
+            </h2>
+            <CustomInput callback={callbackHandlerForInput} label={'add task'}/>
+            <ul>
+                {
+                    props.tasks.map(t => {
+
+
+                        return (
+                            <div key={t.id}
+                                  className={t.isDone ? "is-done" : ""}>
+                                <Checkbox
+                                    onChange={(e) => onChangeHandlerFromCheckBox(e, t.id)}
+                                    checked={t.isDone}/>
+                                {/*<span>{t.title}</span>*/}
+                                <EditableSpan title={t.title}
+                                              callback={(title) => callBackHandlerForEditableSpan(t.id, title)}/>
+                                {/*<button onClick={onClickHandler}>x</button>*/}
+                                <CustomButton name={''}
+
+                                              callback={() => onClickHandler(t.id)}/>
+
+                            </div>
+                        )
+                    })
+                }
+            </ul>
+            <div>
+                <Button variant={props.filter === 'all' ? "contained" : "text"}
+                        onClick={onAllClickHandler}>All
+                </Button>
+                <Button color={'primary'}
+                        variant={props.filter === 'active' ? "contained" : "text"}
+                        className={props.filter === 'active' ? "active-filter" : ""}
+                        onClick={onActiveClickHandler}>Active
+                </Button>
+                <Button color={'secondary'}
+                        variant={props.filter === 'completed' ? "contained" : "text"}
+                        className={props.filter === 'completed' ? "active-filter" : ""}
+                        onClick={onCompletedClickHandler}>Completed
+                </Button>
+            </div>
         </div>
-    </div>
+    )
 }
 
 

@@ -1,5 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import {Button, Input, TextField} from "@mui/material";
+import {Button, ButtonGroup, Input, TextField} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 
 type propsType = {
@@ -32,7 +32,7 @@ export const CustomInput = (props: propsType) => {
     }
 
     return (
-        <div>
+        <ButtonGroup>
             <TextField value={title}
                        variant={'outlined'}
                        onChange={onChangeHandler}
@@ -41,9 +41,12 @@ export const CustomInput = (props: propsType) => {
                        label={error ? "Error" : props.label}
                        helperText={error}
             />
-            <Button onClick={addTask} variant="outlined" color='primary'>
+            <Button onClick={addTask}
+                    variant="outlined"
+                    style={{margin: '0 0 0 10px'}}
+                    color='primary'>
                 <AddIcon/>
             </Button>
-        </div>
+        </ButtonGroup>
     )
 }

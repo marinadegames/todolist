@@ -3,8 +3,9 @@ import './App.css';
 import {v1} from 'uuid';
 import {CustomInput} from "./Components/CustomInput";
 import {TaskType, Todolist} from "./TodoList";
-import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
+import {AppBar, Button, Container, createTheme, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
+import {MyTestComponent} from "./Components/MyTestComponent";
 
 export type FilterValuesType = "all" | "active" | "completed";
 type TodolistType = {
@@ -163,6 +164,7 @@ function App() {
                     }
                 </Grid>
             </Container>
+            <MyTestComponent/>
         </div>
     );
 }

@@ -1,8 +1,7 @@
 // imports
 import React from "react";
 import {Button, IconButton} from "@mui/material";
-import {Delete} from "@mui/icons-material";
-import AddIcon from '@mui/icons-material/Add';
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 // types
 type propsType = {
@@ -19,10 +18,14 @@ export const CustomButton = (props: propsType) => {
     }
 
     return (
-        // <Button onClick={onClickHandler}>{props.name}</Button>
-        <IconButton size="small" onClick={onClickHandler}>
-            <Delete fontSize="inherit" />
-            {/*<AddIcon/>*/}
-        </IconButton>
+        <Button>
+            <IconButton color={'primary'}
+                        onClick={onClickHandler}
+                        size={'small'}>
+                <DeleteOutlineIcon/>
+            </IconButton>
+        </Button>
+
+
     )
 }
