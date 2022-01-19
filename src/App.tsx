@@ -5,7 +5,9 @@ import {CustomInput} from "./Components/CustomInput";
 import {TaskType, Todolist} from "./TodoList";
 import {AppBar, Button, Container, createTheme, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
-import {MyTestComponent} from "./Components/MyTestComponent";
+import {Search} from "@mui/icons-material";
+import SearchIcon from '@mui/icons-material/Search';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
 
 export type FilterValuesType = "all" | "active" | "completed";
 type TodolistType = {
@@ -104,32 +106,45 @@ function App() {
         setTasks({...tasks, [newToDoListId]: []})
     }
 
+
+
     return (
         <div className="App">
             <AppBar position="static">
-
                 <Toolbar>
                     <IconButton
                         size="large"
                         edge="start"
                         color="inherit"
                         aria-label="menu"
-                        sx={{mr: 2}}
+                        sx={{ mr: 2 }}
                     >
-                        <MenuIcon/>
+                        <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         News
                     </Typography>
+                    <IconButton >
+                        <Brightness4Icon color="disabled"/>
+                    </IconButton>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
-
             </AppBar>
-            <Container fixed>
-                <Grid container style={{padding: '1rem', margin: '1rem 0'}}>
+            <Container>
+                <Grid xs={12}
+                      container
+                      direction={'column'}
+                      justifyContent="flex-start"
+                      alignItems="center"
+                      style={{padding: '1rem', margin: '1rem 0'}}>
+                    <h2>Create new ToDo List:</h2>
                     <CustomInput label={'add ToDo list'} callback={callbackHandlerAddToDoList}/>
                 </Grid>
-                <Grid container spacing={10}>
+                <Grid container
+                      xs={12}
+                      justifyContent="center"
+                      alignItems="flex-start"
+                      spacing={5}>
                     {
                         todolists.map(tl => {
                             let allTodolistTasks = tasks[tl.id];
@@ -143,7 +158,7 @@ function App() {
                             }
 
                             return <Grid item>
-                                <Paper style={ {padding: '1rem'}}>
+                                <Paper style={{padding: '1rem'}} variant="outlined">
                                     <Todolist
                                         key={tl.id}
                                         id={tl.id}
@@ -163,8 +178,9 @@ function App() {
                         })
                     }
                 </Grid>
+
             </Container>
-            <MyTestComponent/>
+            {/*<MyTestComponent/>*/}
         </div>
     );
 }

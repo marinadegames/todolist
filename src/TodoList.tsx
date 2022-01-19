@@ -56,20 +56,31 @@ export function Todolist(props: PropsType) {
     return (
         <div>
             <h2 style={{padding: '0', margin: '0'}}>
-                <EditableSpan title={props.title}
-                              callback={(title) => callBackHandlerForEditableSpanForHeader(title)}/>
-                <CustomButton name={''} callback={removeTodolist}/>
-
+                <Grid container
+                      style={{padding: '0 0 1rem 0'}}
+                      justifyContent={'space-between'}
+                      alignContent={'center'}>
+                    <EditableSpan title={props.title}
+                                  callback={(title) => callBackHandlerForEditableSpanForHeader(title)}/>
+                    <CustomButton name={''} callback={removeTodolist}/>
+                </Grid>
             </h2>
-            <CustomInput callback={callbackHandlerForInput} label={'add task'}/>
-            <ul>
+            <div style={{margin: '0 0 1rem 0'}}>
+                <CustomInput callback={callbackHandlerForInput} label={'add task'}/>
+            </div>
+
+            <Grid>
                 {
                     props.tasks.map(t => {
 
 
                         return (
-                            <div key={t.id}
-                                  className={t.isDone ? "is-done" : ""}>
+                            <Grid key={t.id}
+                                  container
+                                  direction={'row'}
+                                  justifyContent={'space-between'}
+                                  alignItems={'center'}
+                                  className={t.isDone ? "isDone" : ""}>
                                 <Checkbox
                                     onChange={(e) => onChangeHandlerFromCheckBox(e, t.id)}
                                     checked={t.isDone}/>
@@ -81,26 +92,31 @@ export function Todolist(props: PropsType) {
 
                                               callback={() => onClickHandler(t.id)}/>
 
-                            </div>
+                            </Grid>
                         )
                     })
                 }
-            </ul>
-            <div>
-                <Button variant={props.filter === 'all' ? "contained" : "text"}
-                        onClick={onAllClickHandler}>All
-                </Button>
-                <Button color={'primary'}
-                        variant={props.filter === 'active' ? "contained" : "text"}
-                        className={props.filter === 'active' ? "active-filter" : ""}
-                        onClick={onActiveClickHandler}>Active
-                </Button>
-                <Button color={'secondary'}
-                        variant={props.filter === 'completed' ? "contained" : "text"}
-                        className={props.filter === 'completed' ? "active-filter" : ""}
-                        onClick={onCompletedClickHandler}>Completed
-                </Button>
-            </div>
+            </Grid>
+            <Grid container
+                  style={{margin: '1rem 0 0 0'}}
+                  justifyContent={'center'}
+                  alignItems={'center'}>
+                <ButtonGroup aria-label="outlined button group">
+                    <Button variant={props.filter === 'all' ? "contained" : "outlined"}
+                            onClick={onAllClickHandler}>All
+                    </Button>
+                    <Button color={'success'}
+                            variant={props.filter === 'active' ? "contained" : "outlined"}
+                            className={props.filter === 'active' ? "active-filter" : ""}
+                            onClick={onActiveClickHandler}>Active
+                    </Button>
+                    <Button color={'secondary'}
+                            variant={props.filter === 'completed' ? "contained" : "outlined"}
+                            className={props.filter === 'completed' ? "active-filter" : ""}
+                            onClick={onCompletedClickHandler}>Completed
+                    </Button>
+                </ButtonGroup>
+            </Grid>
         </div>
     )
 }
