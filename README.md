@@ -11,7 +11,8 @@
 ☑️ Lesson `04` - added `change checkbox` | added `change styles` input      
 ➕️ Lesson `05` - added the ability `delete ToDo List` | refactor code  
 📝️ Lesson `06` - added the ability `change name ToDo lists`. Added `universal component`  \\ added `допы`  
-🎨️ Lesson `07` - added `Material UI` + new component + added tests and reducer
+🎨️ Lesson `07` - added `Material UI` + new component + added tests and reducer  
+🛠️ Lesson `08` - added `reducers` and `tests` + refactoring  
 
 ### 🙃 Good luck for me! ###
 ### `🚀 vjuuuuuuhhhhhhhhh 🚀` ###
