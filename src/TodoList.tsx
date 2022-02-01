@@ -1,17 +1,18 @@
-import React, {ChangeEvent, useState, KeyboardEvent} from 'react';
+// imports
+import React, {ChangeEvent} from 'react';
 import {FilterValuesType} from './App';
 import {CustomButton} from "./Components/CustomButton";
 import {EditableSpan} from "./Components/EditableSpan";
 import {CustomInput} from "./Components/CustomInput";
-import {Button, ButtonGroup, Checkbox, FormGroup, Grid, List, ListItem} from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
+import {Button, ButtonGroup, Checkbox, Grid} from "@mui/material";
 
+
+// types
 export type TaskType = {
     id: string
     title: string
     isDone: boolean
 }
-
 type PropsType = {
     id: string
     title: string
@@ -26,6 +27,8 @@ type PropsType = {
     updateToDoList: (todolistId: string, title: string) => void
 }
 
+
+// component
 export function Todolist(props: PropsType) {
 
     const removeTodolist = () => props.removeTodolist(props.id)
@@ -40,15 +43,12 @@ export function Todolist(props: PropsType) {
         let newIsDoneValue = e.currentTarget.checked;
         props.changeTaskStatus(tId, newIsDoneValue, props.id);
     }
-
     const callBackHandlerForEditableSpan = (tId: string, title: string) => {
         props.updateTask(props.id, tId, title)
     }
-
     const callBackHandlerForEditableSpanForHeader = (title: string) => {
         props.updateToDoList(props.id, title)
     }
-
     const callbackHandlerForInput = (newTitle: string,) => {
         props.addTask(newTitle, props.id)
     }
@@ -84,10 +84,8 @@ export function Todolist(props: PropsType) {
                                 <Checkbox
                                     onChange={(e) => onChangeHandlerFromCheckBox(e, t.id)}
                                     checked={t.isDone}/>
-                                {/*<span>{t.title}</span>*/}
                                 <EditableSpan title={t.title}
                                               callback={(title) => callBackHandlerForEditableSpan(t.id, title)}/>
-                                {/*<button onClick={onClickHandler}>x</button>*/}
                                 <CustomButton name={''}
 
                                               callback={() => onClickHandler(t.id)}/>

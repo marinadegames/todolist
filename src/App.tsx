@@ -7,6 +7,7 @@ import {TaskType, Todolist} from "./TodoList";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
+import {addToDoListAC, toDoListsReducer} from "./state/toDoListsReducer";
 export type FilterValuesType = "all" | "active" | "completed";
 
 // types
@@ -40,6 +41,33 @@ function App() {
         ]
     });
 
+    // functions handler for ToDo
+    function removeTodolist(id: string) {
+        // setTodolists(todolists.filter(tl => tl.id != id));
+        // delete tasks[id];
+        // setTasks({...tasks});
+        setTodolists(toDoListsReducer(todolists, {type: "REMOVE_TODOLIST", id}))
+    }
+    function changeFilter(value: FilterValuesType, todolistId: string) {
+        // let todolist = todolists.find(tl => tl.id === todolistId);
+        // if (todolist) {
+        //     todolist.filter = value;
+        //     setTodolists([...todolists])
+        // }
+        setTodolists(toDoListsReducer(todolists, {type: "CHANGE_TODOLIST_FILTER", filter: value, id: todolistId}))
+    }
+    function changeToDoListTitle(todolistId: string, title: string) {
+        setTodolists(toDoListsReducer(todolists, {type: "CHANGE_TODOLIST_TITLE", title, id: todolistId}))
+    }
+    function addToDoList(title: string) {
+        let newId = v1()
+        setTodolists(toDoListsReducer(todolists, addToDoListAC(title, newId)))
+        setTasks({...tasks, [newId]: []})
+
+    }
+    console.log(todolists)
+
+    // functions handler for tasks
     function removeTask(id: string, todolistId: string) {
         //достанем нужный массив по todolistId:
         let todolistTasks = tasks[todolistId];
@@ -57,7 +85,7 @@ function App() {
         // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
         setTasks({...tasks});
     }
-    function changeStatus(id: string, isDone: boolean, todolistId: string) {
+    function changeStatusTask(id: string, isDone: boolean, todolistId: string) {
         //достанем нужный массив по todolistId:
         let todolistTasks = tasks[todolistId];
         // найдём нужную таску:
@@ -69,33 +97,13 @@ function App() {
             setTasks({...tasks});
         }
     }
-    function changeFilter(value: FilterValuesType, todolistId: string) {
-        let todolist = todolists.find(tl => tl.id === todolistId);
-        if (todolist) {
-            todolist.filter = value;
-            setTodolists([...todolists])
-        }
-    }
-    function removeTodolist(id: string) {
-        // засунем в стейт список тудулистов, id которых не равны тому, который нужно выкинуть
-        setTodolists(todolists.filter(tl => tl.id != id));
-        // удалим таски для этого тудулиста из второго стейта, где мы храним отдельно таски
-        delete tasks[id]; // удаляем св-во из объекта... значением которого являлся массив тасок
-        // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
-        setTasks({...tasks});
-    }
     function updateTask(todolistId: string, taskId: string, title: string) {
-        setTasks({...tasks, [todolistId]: tasks[todolistId].map(m => m.id === taskId ? {...m, title} : m)})
+
+        //setTasks({...tasks, [todolistId]: tasks[todolistId].map(m => m.id === taskId ? {...m, title} : m)})
     }
-    function updateToDoList(todolistId: string, title: string) {
-        console.log(title)
-        setTodolists(todolists.map(td => todolistId === td.id ? {...td, title} : td))
-    }
-    function callbackHandlerAddToDoList(title: string) {
-        let newToDoListId = v1()
-        setTodolists([{id: newToDoListId, title, filter: 'all'}, ...todolists])
-        setTasks({...tasks, [newToDoListId]: []})
-    }
+
+
+
 
     return (
         <div className="App">
@@ -127,7 +135,7 @@ function App() {
                       alignItems="center"
                       style={{padding: '1rem', margin: '1rem 0'}}>
                     <h2>Create new ToDo List:</h2>
-                    <CustomInput label={'add ToDo list'} callback={callbackHandlerAddToDoList}/>
+                    <CustomInput label={'add ToDo list'} callback={addToDoList}/>
                 </Grid>
                 <Grid container
                       xs={12}
@@ -156,9 +164,9 @@ function App() {
                                         removeTask={removeTask}
                                         changeFilter={changeFilter}
                                         addTask={addTask}
-                                        changeTaskStatus={changeStatus}
+                                        changeTaskStatus={changeStatusTask}
                                         filter={tl.filter}
-                                        updateToDoList={updateToDoList}
+                                        updateToDoList={changeToDoListTitle}
                                         updateTask={updateTask}
                                         removeTodolist={removeTodolist}
                                     />
