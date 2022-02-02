@@ -49,10 +49,8 @@ export const tasksReducer = (state: TasksStateType, action: ActionType): TasksSt
             const newTasksADD = [...tasks, newTaskADD]
             stateCopy[action.todolistId] = newTasksADD
             return stateCopy
-
         case 'CHANGE_TASK_TITLE':
             return {...state, [action.todolistId]: state[action.todolistId].map(m => m.id === action.id ? {...m, title: action.title} : m)}
-
         case 'CHANGE_STATUS_TITLE':
             let todolistTasks = state[action.todolistId];
             let task = todolistTasks.find(t => t.id === action.id);
@@ -62,6 +60,7 @@ export const tasksReducer = (state: TasksStateType, action: ActionType): TasksSt
             }else{
                 return {...state}
             }
+
         default:
             return state
     }
