@@ -9,7 +9,7 @@ import {
 } from "./toDoListsReducer";
 import {FilterValuesType, TasksStateType, TodolistType} from "../App";
 import {TaskType} from "../TodoList";
-import {addTaskAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./tasksReducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./tasksReducer";
 
 
 // tests
@@ -88,4 +88,30 @@ test('CHANGE STATUS TASK', () => {
 
     expect(endState[todolistId1][0].title).toBe('React');
     // expect().toBe();
+})
+
+test('CHANGE TASK', () => {
+
+    let todolistId1 = v1()
+    let todolistId2 = v1()
+
+    const startState: TasksStateType = {
+        [todolistId1]: [
+            { id: "1", title: "CSS", isDone: false },
+            { id: "2", title: "JS", isDone: true },
+            { id: "3", title: "React", isDone: false }
+        ],
+        [todolistId2]: [
+            { id: "1", title: "bread", isDone: false },
+            { id: "2", title: "milk", isDone: true },
+            { id: "3", title: "tea", isDone: false }
+        ]
+    };
+
+    const action = changeTaskStatusAC("2", false, todolistId2);
+
+    const endState = tasksReducer(startState, action)
+
+    expect(endState[todolistId2][1].isDone).toBe(false);
 });
+

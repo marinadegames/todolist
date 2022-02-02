@@ -7,8 +7,8 @@ import {TaskType, Todolist} from "./TodoList";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
-import {addToDoListAC, toDoListsReducer} from "./state/toDoListsReducer";
-import {addTaskAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./state/tasksReducer";
+import {addToDoListAC, changeToDoListTitleAC, toDoListsReducer} from "./state/toDoListsReducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./state/tasksReducer";
 export type FilterValuesType = "all" | "active" | "completed";
 
 // types
@@ -68,16 +68,7 @@ function App() {
         setTasks(tasksReducer(tasks, addTaskAC(title, todolistId)))
     }
     function changeStatusTask(id: string, isDone: boolean, todolistId: string) {
-        //достанем нужный массив по todolistId:
-        let todolistTasks = tasks[todolistId];
-        // найдём нужную таску:
-        let task = todolistTasks.find(t => t.id === id);
-        //изменим таску, если она нашлась
-        if (task) {
-            task.isDone = isDone;
-            // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
-            setTasks({...tasks});
-        }
+        setTasks(tasksReducer(tasks, changeTaskStatusAC(id, isDone, todolistId)))
     }
     function updateTask(todolistId: string, taskId: string, title: string) {
         setTasks(tasksReducer(tasks, changeTaskTitleAC(taskId, title, todolistId, false)))
