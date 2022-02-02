@@ -8,6 +8,7 @@ import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography}
 import MenuIcon from '@mui/icons-material/Menu';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import {addToDoListAC, toDoListsReducer} from "./state/toDoListsReducer";
+import {addTaskAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./state/tasksReducer";
 export type FilterValuesType = "all" | "active" | "completed";
 
 // types
@@ -43,17 +44,9 @@ function App() {
 
     // functions handler for ToDo
     function removeTodolist(id: string) {
-        // setTodolists(todolists.filter(tl => tl.id != id));
-        // delete tasks[id];
-        // setTasks({...tasks});
         setTodolists(toDoListsReducer(todolists, {type: "REMOVE_TODOLIST", id}))
     }
     function changeFilter(value: FilterValuesType, todolistId: string) {
-        // let todolist = todolists.find(tl => tl.id === todolistId);
-        // if (todolist) {
-        //     todolist.filter = value;
-        //     setTodolists([...todolists])
-        // }
         setTodolists(toDoListsReducer(todolists, {type: "CHANGE_TODOLIST_FILTER", filter: value, id: todolistId}))
     }
     function changeToDoListTitle(todolistId: string, title: string) {
@@ -69,18 +62,10 @@ function App() {
 
     // functions handler for tasks
     function removeTask(id: string, todolistId: string) {
-        let todolistTasks = tasks[todolistId];
-        tasks[todolistId] = todolistTasks.filter(t => t.id != id);
-        setTasks({...tasks});
+        setTasks(tasksReducer(tasks, removeTaskAC(id, todolistId)))
     }
     function addTask(title: string, todolistId: string) {
-        let task = {id: v1(), title: title, isDone: false};
-        //достанем нужный массив по todolistId:
-        let todolistTasks = tasks[todolistId];
-        // перезапишем в этом объекте массив для нужного тудулиста копией, добавив в начало новую таску:
-        tasks[todolistId] = [task, ...todolistTasks];
-        // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
-        setTasks({...tasks});
+        setTasks(tasksReducer(tasks, addTaskAC(title, todolistId)))
     }
     function changeStatusTask(id: string, isDone: boolean, todolistId: string) {
         //достанем нужный массив по todolistId:
@@ -95,8 +80,7 @@ function App() {
         }
     }
     function updateTask(todolistId: string, taskId: string, title: string) {
-
-        //setTasks({...tasks, [todolistId]: tasks[todolistId].map(m => m.id === taskId ? {...m, title} : m)})
+        setTasks(tasksReducer(tasks, changeTaskTitleAC(taskId, title, todolistId, false)))
     }
 
 

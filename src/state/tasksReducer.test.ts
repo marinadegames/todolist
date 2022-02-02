@@ -36,7 +36,7 @@ test('task REMOVE', () => {
     expect(startState[todolistId1].length).toBe(3)
     expect(endState[todolistId1].length).toBe(2);
     expect(endState[todolistId2].length).toBe(3);
-    expect(endState[todolistId1].every(t => t.id != '2')).toBeTruthy()
+    expect(endState[todolistId1].every(t => t.id !== '2')).toBeTruthy()
 });
 
 test('task ADD', () => {
@@ -65,26 +65,27 @@ test('task ADD', () => {
     expect(endState[todolistId1][3].title).toBe(newTitleTask)
 });
 //
-// test('task CHANGE STATUS', () => {
-//     let todolistId1: string = v1();
-//     let todolistId2: string = v1();
-//
-//     const startState: TasksStateType = {
-//         [todolistId1] : [
-//             { id: '1', title: 'HTML', isDone: true},
-//             { id: '2', title: 'CSS', isDone: true},
-//             { id: '3', title: 'JS', isDone: false},
-//         ],
-//         [todolistId2] : [
-//             { id: '1', title: 'bread', isDone: true},
-//             { id: '2', title: 'milk', isDone: false},
-//             { id: '3', title: 'water', isDone: false},
-//         ],
-//     }
-//     const newTitleTask = 'React'
-//     const action = changeTaskTitleAC('1', newTitleTask, todolistId1)
-//     const endState = tasksReducer(startState, action)
-//
-//     expect(endState[todolistId1][0].title).toBe(newTitleTask)
-//     expect(endState[todolistId1].length).toBe(startState[todolistId1].length)
-// });
+test('CHANGE STATUS TASK', () => {
+
+    let todolistId1 = v1()
+    let todolistId2 = v1()
+
+    const startState: TasksStateType = {
+        [todolistId1] : [
+            { id: '1', title: 'HTML', isDone: true},
+            { id: '2', title: 'CSS', isDone: true},
+            { id: '3', title: 'JS', isDone: false},
+        ],
+        [todolistId2] : [
+            { id: '1', title: 'bread', isDone: true},
+            { id: '2', title: 'milk', isDone: false},
+            { id: '3', title: 'water', isDone: false},
+        ],
+    }
+    const newTitle = 'React'
+    const action = changeTaskTitleAC('1', newTitle, todolistId1, false)
+    const endState = tasksReducer(startState, action);
+
+    expect(endState[todolistId1][0].title).toBe('React');
+    // expect().toBe();
+});
