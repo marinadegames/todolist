@@ -1,10 +1,10 @@
 // imports
 import React, {ChangeEvent} from 'react';
-import {FilterValuesType} from './App';
 import {CustomButton} from "./Components/CustomButton";
 import {EditableSpan} from "./Components/EditableSpan";
 import {CustomInput} from "./Components/CustomInput";
 import {Button, ButtonGroup, Checkbox, Grid} from "@mui/material";
+import {FilterValuesType} from "./state/toDoListsReducer";
 
 
 // types

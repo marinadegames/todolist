@@ -1,6 +1,29 @@
 // imports
-import {TasksStateType} from "../App";
 import {v1} from "uuid";
+import {TaskType} from "../TodoList";
+import {AddToDOListActionType, todolistId1, todolistId2} from "./toDoListsReducer";
+
+
+// types
+
+export type TasksStateType = {
+    [key: string]: Array<TaskType>
+}
+
+
+// initial state
+
+let initialState: TasksStateType = {
+    [todolistId1]: [
+        {id: v1(), title: "HTML&CSS", isDone: true},
+        {id: v1(), title: "JS", isDone: false}
+    ],
+    [todolistId2]: [
+        {id: v1(), title: "Milk", isDone: true},
+        {id: v1(), title: "React Book", isDone: false}
+    ]
+}
+
 
 
 // types
@@ -9,7 +32,7 @@ type RemoveTaskActionType = {
     id: string
     todolistId: string
 }
-type AddTaskActionType = {
+export type AddTaskActionType = {
     type: 'ADD_TASK'
     title: string
     todolistId: string
@@ -27,21 +50,19 @@ type ChangeTaskStatusActionType = {
     isDone: boolean
     todolistId: string
 }
+type ActionType = RemoveTaskActionType | AddTaskActionType | ChangeTaskTitleActionType | ChangeTaskStatusActionType | AddToDOListActionType
 
-type ActionType = RemoveTaskActionType | AddTaskActionType | ChangeTaskTitleActionType | ChangeTaskStatusActionType
 
 // reducer
-export const tasksReducer = (state: TasksStateType, action: ActionType): TasksStateType => {
+export const tasksReducer = (state = initialState, action: ActionType): TasksStateType => {
 
     switch (action.type) {
-
         case 'REMOVE_TASK':
             let tasksCopy = {...state}
             const newTask = state[action.todolistId]
             const filteredTask = newTask.filter(t => t.id !== action.id)
             tasksCopy[action.todolistId] = filteredTask
             return tasksCopy
-
         case 'ADD_TASK':
             const stateCopy = {...state}
             const tasks = stateCopy[action.todolistId]
@@ -49,15 +70,24 @@ export const tasksReducer = (state: TasksStateType, action: ActionType): TasksSt
             const newTasksADD = [...tasks, newTaskADD]
             stateCopy[action.todolistId] = newTasksADD
             return stateCopy
+        case 'ADD_TODOLIST':
+            const copyTasksADDTODO = {...state}
+            copyTasksADDTODO[action.newId] = []
+            return copyTasksADDTODO
         case 'CHANGE_TASK_TITLE':
-            return {...state, [action.todolistId]: state[action.todolistId].map(m => m.id === action.id ? {...m, title: action.title} : m)}
+            return {...state,
+                [action.todolistId]: state[action.todolistId].map(m => m.id === action.id ? {
+                    ...m,
+                    title: action.title
+                } : m)
+            }
         case 'CHANGE_STATUS_TITLE':
             let todolistTasks = state[action.todolistId];
             let task = todolistTasks.find(t => t.id === action.id);
             if (task) {
                 task.isDone = action.isDone;
                 return {...state}
-            }else{
+            } else {
                 return {...state}
             }
 
