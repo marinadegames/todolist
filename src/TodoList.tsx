@@ -5,6 +5,7 @@ import {EditableSpan} from "./Components/EditableSpan";
 import {CustomInput} from "./Components/CustomInput";
 import {Button, ButtonGroup, Checkbox, Grid} from "@mui/material";
 import {FilterValuesType} from "./state/toDoListsReducer";
+import {Task} from "./Components/Task";
 
 
 // types
@@ -93,22 +94,16 @@ export const Todolist = React.memo((props: PropsType) => {
 
 
                         return (
-                            <Grid key={t.id}
-                                  container
-                                  direction={'row'}
-                                  justifyContent={'space-between'}
-                                  alignItems={'center'}
-                                  className={t.isDone ? "isDone" : ""}>
-                                <Checkbox
-                                    onChange={(e) => callbackChangeTaskStatus(e, t.id)}
-                                    checked={t.isDone}/>
-                                <EditableSpan title={t.title}
-                                              callback={(title) => callbackUpdateTask(t.id, title)}/>
-                                <CustomButton name={''}
+                            <div key={t.id}>
+                                <Task id={t.id}
+                                      isDone={t.isDone}
+                                      title={t.title}
+                                      callbackChangeTaskStatus={callbackChangeTaskStatus}
+                                      callbackUpdateTask={callbackUpdateTask}
+                                      onClickHandler={onClickHandler}
+                                />
+                            </div>
 
-                                              callback={() => onClickHandler(t.id)}/>
-
-                            </Grid>
                         )
                     })
                 }
@@ -136,3 +131,6 @@ export const Todolist = React.memo((props: PropsType) => {
         </div>
     )
 })
+
+
+
