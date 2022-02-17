@@ -1,6 +1,6 @@
 // imports
 import React from "react";
-import {Button, IconButton} from "@mui/material";
+import {IconButton} from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 // types

@@ -10,7 +10,9 @@ type propsType = {
 
 // components
 
-export const EditableSpan = (props: propsType) => {
+export const EditableSpan = React.memo(  (props: propsType) => {
+
+    console.log('EDITABLE SPAN')
 
     const [title, setTitle] = useState<string>(props.title)
     const [edit, setEdit] = useState<boolean>(false)
@@ -37,4 +39,4 @@ export const EditableSpan = (props: propsType) => {
                 onBlur={onBlurHandler}/>
             : <span onDoubleClick={onClickHandler}>{props.title}</span>
     )
-}
+})

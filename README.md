@@ -14,7 +14,8 @@
 🎨️ Lesson `07` - added `Material UI` + new component + added tests and reducer  
 🛠️ Lesson `08` - added `reducers` and `tests` + refactoring  
 🦾️ Lesson `09` - added `reducers` for tasks + added new tests  
-💡  Lesson `10` - moving the project to `redux`
+💡  Lesson `10` - moving the project to `redux`  
+📱  Lesson `11` - `useCallback`, `React.memo`, added optimization
 
 ### 🙃 Good luck for me! ###
 ### `🚀 vjuuuuuuhhhhhhhhh 🚀` ###

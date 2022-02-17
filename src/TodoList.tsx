@@ -1,5 +1,5 @@
 // imports
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useCallback} from 'react';
 import {CustomButton} from "./Components/CustomButton";
 import {EditableSpan} from "./Components/EditableSpan";
 import {CustomInput} from "./Components/CustomInput";
@@ -29,7 +29,10 @@ type PropsType = {
 
 
 // component
-export function Todolist(props: PropsType) {
+export const Todolist = React.memo((props: PropsType) => {
+
+    console.log('TODO LIST')
+
 
     const removeTodolist = () => props.removeTodolist(props.id)
     const onAllClickHandler = () => props.changeFilter("all", props.id);
@@ -39,19 +42,34 @@ export function Todolist(props: PropsType) {
     const onClickHandler = (tId: string) => {
         props.removeTask(tId, props.id)
     }
-    const onChangeHandlerFromCheckBox = (e: ChangeEvent<HTMLInputElement>, tId: string) => {
+
+    const callbackChangeTaskStatus = (e: ChangeEvent<HTMLInputElement>, tId: string) => {
         let newIsDoneValue = e.currentTarget.checked;
         props.changeTaskStatus(tId, newIsDoneValue, props.id);
     }
-    const callBackHandlerForEditableSpan = (tId: string, title: string) => {
+    const callbackUpdateTask = (tId: string, title: string) => {
         props.updateTask(props.id, tId, title)
     }
-    const callBackHandlerForEditableSpanForHeader = (title: string) => {
+    const callbackUpdateToDoLists = (title: string) => {
         props.updateToDoList(props.id, title)
     }
-    const callbackHandlerForInput = (newTitle: string,) => {
+
+    const callbackAddTask = useCallback((newTitle: string) => {
         props.addTask(newTitle, props.id)
+    }, [props.addTask, props.id])
+
+
+    // FILTER
+
+    let tasksForTodolist = props.tasks
+
+    if (props.filter === "active") {
+        tasksForTodolist = props.tasks.filter(t => !t.isDone);
     }
+    if (props.filter === "completed") {
+        tasksForTodolist = props.tasks.filter(t => t.isDone);
+    }
+
 
     return (
         <div>
@@ -61,17 +79,17 @@ export function Todolist(props: PropsType) {
                       justifyContent={'space-between'}
                       alignContent={'center'}>
                     <EditableSpan title={props.title}
-                                  callback={(title) => callBackHandlerForEditableSpanForHeader(title)}/>
+                                  callback={(title) => callbackUpdateToDoLists(title)}/>
                     <CustomButton name={''} callback={removeTodolist}/>
                 </Grid>
             </h2>
             <div style={{margin: '0 0 1rem 0'}}>
-                <CustomInput callback={callbackHandlerForInput} label={'add task'}/>
+                <CustomInput callback={callbackAddTask} label={'add task'}/>
             </div>
 
             <Grid>
                 {
-                    props.tasks.map(t => {
+                    tasksForTodolist.map(t => {
 
 
                         return (
@@ -82,10 +100,10 @@ export function Todolist(props: PropsType) {
                                   alignItems={'center'}
                                   className={t.isDone ? "isDone" : ""}>
                                 <Checkbox
-                                    onChange={(e) => onChangeHandlerFromCheckBox(e, t.id)}
+                                    onChange={(e) => callbackChangeTaskStatus(e, t.id)}
                                     checked={t.isDone}/>
                                 <EditableSpan title={t.title}
-                                              callback={(title) => callBackHandlerForEditableSpan(t.id, title)}/>
+                                              callback={(title) => callbackUpdateTask(t.id, title)}/>
                                 <CustomButton name={''}
 
                                               callback={() => onClickHandler(t.id)}/>
@@ -117,6 +135,4 @@ export function Todolist(props: PropsType) {
             </Grid>
         </div>
     )
-}
-
-
+})

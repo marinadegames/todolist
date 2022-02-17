@@ -1,5 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import {Button, ButtonGroup, Input, TextField} from "@mui/material";
+import {Button, ButtonGroup, TextField} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 
 type propsType = {
@@ -7,16 +7,21 @@ type propsType = {
     label: string
 }
 
-export const CustomInput = (props: propsType) => {
+export const CustomInput = React.memo( (props: propsType) => {
 
-    let [title, setTitle] = useState("")
+    console.log('CUSTOM INPUT')
+
+    let [title, setTitle] = useState<string>("")
     let [error, setError] = useState<string | null>(null)
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
+
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null);
+        if (error !== null) {
+            setError(null)
+        }
         if (e.charCode === 13) {
             addTask();
         }
@@ -49,4 +54,4 @@ export const CustomInput = (props: propsType) => {
             </Button>
         </ButtonGroup>
     )
-}
+})

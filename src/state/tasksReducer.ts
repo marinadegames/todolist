@@ -1,7 +1,7 @@
 // imports
 import {v1} from "uuid";
 import {TaskType} from "../TodoList";
-import {AddToDOListActionType, todolistId1, todolistId2} from "./toDoListsReducer";
+import {AddToDOListActionType} from "./toDoListsReducer";
 
 
 // types
@@ -13,17 +13,7 @@ export type TasksStateType = {
 
 // initial state
 
-let initialState: TasksStateType = {
-    [todolistId1]: [
-        {id: v1(), title: "HTML&CSS", isDone: true},
-        {id: v1(), title: "JS", isDone: false}
-    ],
-    [todolistId2]: [
-        {id: v1(), title: "Milk", isDone: true},
-        {id: v1(), title: "React Book", isDone: false}
-    ]
-}
-
+let initialState: TasksStateType = {}
 
 
 // types
@@ -50,7 +40,12 @@ type ChangeTaskStatusActionType = {
     isDone: boolean
     todolistId: string
 }
-type ActionType = RemoveTaskActionType | AddTaskActionType | ChangeTaskTitleActionType | ChangeTaskStatusActionType | AddToDOListActionType
+type ActionType =
+    RemoveTaskActionType
+    | AddTaskActionType
+    | ChangeTaskTitleActionType
+    | ChangeTaskStatusActionType
+    | AddToDOListActionType
 
 
 // reducer
@@ -75,7 +70,8 @@ export const tasksReducer = (state = initialState, action: ActionType): TasksSta
             copyTasksADDTODO[action.newId] = []
             return copyTasksADDTODO
         case 'CHANGE_TASK_TITLE':
-            return {...state,
+            return {
+                ...state,
                 [action.todolistId]: state[action.todolistId].map(m => m.id === action.id ? {
                     ...m,
                     title: action.title
@@ -86,10 +82,9 @@ export const tasksReducer = (state = initialState, action: ActionType): TasksSta
             let task = todolistTasks.find(t => t.id === action.id);
             if (task) {
                 task.isDone = action.isDone;
-                return {...state}
-            } else {
-                return {...state}
             }
+            state[action.todolistId] = [...todolistTasks]
+            return {...state}
 
         default:
             return state
