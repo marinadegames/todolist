@@ -15,8 +15,8 @@
 🛠️ Lesson `08` - added `reducers` and `tests` + refactoring  
 🦾️ Lesson `09` - added `reducers` for tasks + added new tests  
 💡  Lesson `10` - moving the project to `redux`  
-📱  Lesson `11` - `useCallback`, `React.memo`, added optimization  
-📖  Lesson `12` - added `storybook`
+📱  Lesson `11` - `useCallback`, `React.memo`, added optimization    
+📖  Lesson `12` - added `storybook` | `snapshot` tests  
 
 ### 🙃 Good luck for me! ###
 ### `🚀 vjuuuuuuhhhhhhhhh 🚀` ###

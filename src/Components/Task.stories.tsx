@@ -2,6 +2,7 @@
 import React from 'react'
 import {action} from "@storybook/addon-actions";
 import {Task} from "./Task";
+import {Container} from "@mui/material";
 
 export default {
     title: 'Custom Input Component',
@@ -16,12 +17,23 @@ const updateTask = action('Task updated!')
 // components
 export const CustomInputStories = () => {
     return (
-        <Task id={'1234-1234-rewq-qwer-1234'}
-              isDone={false}
-              title={'Example title'}
-              callbackChangeTaskStatus={changeTaskStatus}
-              callbackUpdateTask={updateTask}
-              onClickHandler={removeTask}
-        />
+        <Container maxWidth="sm">
+
+            <Task id={'1234-1234-rewq-qwer-1234'}
+                  isDone={false}
+                  title={'Example title'}
+                  callbackChangeTaskStatus={changeTaskStatus}
+                  callbackUpdateTask={updateTask}
+                  onClickHandler={removeTask}
+            />
+            <Task id={'qwer-qwer-qwer-qwer-qwer'}
+                  isDone={false}
+                  title={'Example title two'}
+                  callbackChangeTaskStatus={changeTaskStatus}
+                  callbackUpdateTask={updateTask}
+                  onClickHandler={removeTask}
+            />
+        </Container>
+
     )
 }

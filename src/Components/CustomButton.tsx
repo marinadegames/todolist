@@ -18,10 +18,10 @@ export const CustomButton = (props: propsType) => {
     }
 
     return (
-            <IconButton color={'primary'}
-                        onClick={onClickHandler}
-                        size={'small'}>
-                <DeleteOutlineIcon/>
-            </IconButton>
+        <IconButton color={'primary'}
+                    onClick={onClickHandler}
+                    size={'small'}>
+            <DeleteOutlineIcon/>
+        </IconButton>
     )
 }
