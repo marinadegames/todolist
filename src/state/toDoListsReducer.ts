@@ -2,7 +2,6 @@
 import {v1} from "uuid";
 import {AddTaskActionType} from "./tasksReducer";
 
-
 // types
 type RemoveToDoListActionType = {
     type: 'REMOVE_TODOLIST'
@@ -37,12 +36,7 @@ export type TodolistType = {
 
 // initial state
 export type FilterValuesType = "all" | "active" | "completed";
-// export const todolistId1 = v1();
-// export const todolistId2 = v1();
-
-let initialState: Array<TodolistType> = [
-
-]
+let initialState: Array<TodolistType> = []
 
 
 // reducer

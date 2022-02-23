@@ -33,9 +33,7 @@ function App() {
     const tasks = useSelector<rootReducerType, TasksStateType>(state => state.tasks)
     const todolists = useSelector<rootReducerType, Array<TodolistType>>(state => state.todolists)
 
-
     const dispatch = useDispatch()
-
 
     // functions handler for ToDo
     const removeTodolist = useCallback((id: string) => {

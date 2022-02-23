@@ -7,9 +7,7 @@ type propsType = {
     label: string
 }
 
-export const CustomInput = React.memo( (props: propsType) => {
-
-    console.log('CUSTOM INPUT')
+export const CustomInput = React.memo((props: propsType) => {
 
     let [title, setTitle] = useState<string>("")
     let [error, setError] = useState<string | null>(null)

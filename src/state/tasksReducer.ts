@@ -3,18 +3,13 @@ import {v1} from "uuid";
 import {TaskType} from "../TodoList";
 import {AddToDOListActionType} from "./toDoListsReducer";
 
-
 // types
-
 export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
-
 // initial state
-
 let initialState: TasksStateType = {}
-
 
 // types
 type RemoveTaskActionType = {

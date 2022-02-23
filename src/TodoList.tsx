@@ -3,7 +3,7 @@ import React, {ChangeEvent, useCallback} from 'react';
 import {CustomButton} from "./Components/CustomButton";
 import {EditableSpan} from "./Components/EditableSpan";
 import {CustomInput} from "./Components/CustomInput";
-import {Button, ButtonGroup, Checkbox, Grid} from "@mui/material";
+import {Button, ButtonGroup, Grid} from "@mui/material";
 import {FilterValuesType} from "./state/toDoListsReducer";
 import {Task} from "./Components/Task";
 
@@ -31,8 +31,6 @@ type PropsType = {
 
 // component
 export const Todolist = React.memo((props: PropsType) => {
-
-    console.log('TODO LIST')
 
 
     const removeTodolist = () => props.removeTodolist(props.id)
