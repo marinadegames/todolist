@@ -17,6 +17,7 @@
 💡  Lesson `10` - moving the project to `redux`  
 📱  Lesson `11` - `useCallback`, `React.memo`, added optimization    
 📖  Lesson `12` - added `storybook` | `snapshot` tests  
+⚡  Lesson `13` - get tasks `API`
 
 ### 🙃 Good luck for me! ###
 ### `🚀 vjuuuuuuhhhhhhhhh 🚀` ###
