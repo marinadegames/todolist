@@ -8,6 +8,7 @@ import {
     TasksStateType
 } from "./tasksReducer";
 import {v1} from "uuid";
+import {TaskPriorities, TaskStatuses} from "../API/todolists-API";
 
 // start state
 let todolistId1: string = v1();
@@ -22,14 +23,86 @@ beforeEach(() => {
 
     startState = {
         [todolistId1]: [
-            {id: '1', title: 'HTML', isDone: true},
-            {id: '2', title: 'CSS', isDone: true},
-            {id: '3', title: 'JS', isDone: false},
+            {
+                id: '1',
+                title: 'HTML',
+                status: TaskStatuses.New,
+                description: '',
+                completed: false,
+                priority: TaskPriorities.Low,
+                startDate: 'string',
+                deadline: 'string',
+                todoListId: todolistId1,
+                order: 0,
+                addedDate: 'string',
+            },
+            {
+                id: '2',
+                title: 'CSS',
+                status: TaskStatuses.New,
+                description: '',
+                completed: false,
+                priority: TaskPriorities.Low,
+                startDate: 'string',
+                deadline: 'string',
+                todoListId: todolistId1,
+                order: 0,
+                addedDate: 'string',
+            },
+            {
+                id: '3',
+                title: 'JS',
+                status: TaskStatuses.New,
+                description: '',
+                completed: false,
+                priority: TaskPriorities.Low,
+                startDate: 'string',
+                deadline: 'string',
+                todoListId: todolistId1,
+                order: 0,
+                addedDate: 'string',
+            },
         ],
         [todolistId2]: [
-            {id: '1', title: 'bread', isDone: true},
-            {id: '2', title: 'milk', isDone: false},
-            {id: '3', title: 'water', isDone: false},
+            {
+                id: '3',
+                title: 'Milk',
+                status: TaskStatuses.New,
+                description: '',
+                completed: false,
+                priority: TaskPriorities.Low,
+                startDate: 'string',
+                deadline: 'string',
+                todoListId: todolistId2,
+                order: 0,
+                addedDate: 'string',
+            },
+            {
+                id: '5',
+                title: 'Water',
+                status: TaskStatuses.New,
+                description: '',
+                completed: false,
+                priority: TaskPriorities.Low,
+                startDate: 'string',
+                deadline: 'string',
+                todoListId: todolistId2,
+                order: 0,
+                addedDate: 'string',
+            },
+            {
+                id: '6',
+                title: 'Juice',
+                status: TaskStatuses.New,
+                description: '',
+                completed: false,
+                priority: TaskPriorities.Low,
+                startDate: 'string',
+                deadline: 'string',
+                todoListId: todolistId2,
+                order: 0,
+                addedDate: 'string',
+            },
         ],
     }
 })
@@ -55,14 +128,14 @@ test('task ADD', () => {
 });
 test('CHANGE STATUS TASK', () => {
     const newTitle = 'React'
-    const action = changeTaskTitleAC('1', newTitle, todolistId1, false)
+    const action = changeTaskTitleAC('1', newTitle, todolistId1, 0)
     const endState = tasksReducer(startState, action);
     expect(endState[todolistId1][0].title).toBe('React');
     // expect().toBe();
 })
 test('CHANGE TASK', () => {
-    const action = changeTaskStatusAC("2", false, todolistId2);
+    const action = changeTaskStatusAC("1", 3, todolistId1);
     const endState = tasksReducer(startState, action)
-    expect(endState[todolistId2][1].isDone).toBe(false);
+    expect(endState[todolistId1][0].status).toBe(3);
 });
 

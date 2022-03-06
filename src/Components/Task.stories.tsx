@@ -20,14 +20,14 @@ export const CustomInputStories = () => {
         <Container maxWidth="sm">
 
             <Task id={'1234-1234-rewq-qwer-1234'}
-                  isDone={false}
+                  status={0}
                   title={'Example title'}
                   callbackChangeTaskStatus={changeTaskStatus}
                   callbackUpdateTask={updateTask}
                   onClickHandler={removeTask}
             />
             <Task id={'qwer-qwer-qwer-qwer-qwer'}
-                  isDone={false}
+                  status={0}
                   title={'Example title two'}
                   callbackChangeTaskStatus={changeTaskStatus}
                   callbackUpdateTask={updateTask}
