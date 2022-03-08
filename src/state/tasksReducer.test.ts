@@ -107,7 +107,6 @@ beforeEach(() => {
     }
 })
 
-
 // tests
 test('task REMOVE', () => {
     const action = removeTaskAC('2', todolistId1)
