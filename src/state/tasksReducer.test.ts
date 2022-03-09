@@ -3,7 +3,7 @@ import {
     addTaskAC,
     changeTaskStatusAC,
     changeTaskTitleAC,
-    removeTaskAC,
+    removeTaskAC, setTasksAC,
     tasksReducer,
     TasksStateType
 } from "./tasksReducer";
@@ -148,5 +148,15 @@ test('SET TASKS BEFORE SET TODOLISTS', () => {
     expect(keys.length).toBe(2)
     expect(endState['1']).toStrictEqual([])
     expect(endState['2']).toStrictEqual([])
+
+})
+test('SET TASKS to TODOLIST', () => {
+    const action = setTasksAC(startState[todolistId2], todolistId1)
+    const endState = tasksReducer({
+        [todolistId1]: [],
+        [todolistId2]: []
+    }, action)
+    expect(endState[todolistId1].length).toBe(3)
+    expect(endState[todolistId2].length).toBe(0)
 
 })

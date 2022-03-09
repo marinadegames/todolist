@@ -66,17 +66,6 @@ export const DeleteTodolist = () => {
         console.log(e)
     }
 
-    // useEffect(() => {
-    //     todolistsAPI.deleteTodolist(stateId)
-    //         .then(resp => {
-    //             setMessage(resp.data)
-    //         })
-    //         .catch(error => {
-    //             setMessage(error)
-    //         })
-    // }, [stateId])
-
-
     const deleteTodolistHandler = () => {
         todolistsAPI.deleteTodolist(stateId)
             .then(resp => {
@@ -115,7 +104,7 @@ export const GetTasks = () => {
     const [state, setState] = useState<any>(null)
 
     useEffect(() => {
-        const todolistId = '590e8858-2029-4fb0-97ac-bee478e2bf91'
+        const todolistId = 'a34eafbb-ef85-4667-845b-ed75d92715c6'
         todolistsAPI.getTasks(todolistId)
             .then(resp => {
                 setState(resp.data)
@@ -131,9 +120,8 @@ export const DeleteTask = () => {
     const [state, setState] = useState<any>(null)
 
     useEffect(() => {
-        const todolistId = '590e8858-2029-4fb0-97ac-bee478e2bf91'
+        const todolistId = 'bcde547c-338b-401c-bb89-8ef6b4900695'
         const taskId = ''
-        const newTitleTask = 'DRINK WATER'
         todolistsAPI.deleteTask(todolistId, taskId)
             .then(resp => {
                 setState(resp.data)
@@ -198,8 +186,8 @@ export const CreateTask = () => {
     const [state, setState] = useState<any>(null)
 
     useEffect(() => {
-        const todolistId = '590e8858-2029-4fb0-97ac-bee478e2bf91'
-        const newTaskTitle = 'NEW TASK TITLE'
+        const todolistId = 'a34eafbb-ef85-4667-845b-ed75d92715c6'
+        const newTaskTitle = 'SEcond title'
         todolistsAPI.createTask(todolistId, newTaskTitle)
             .then(resp => {
                 setState(resp.data)

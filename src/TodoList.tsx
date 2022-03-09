@@ -1,5 +1,5 @@
 // imports
-import React, {ChangeEvent, useCallback} from 'react';
+import React, {ChangeEvent, useCallback, useEffect} from 'react';
 import {CustomButton} from "./Components/CustomButton";
 import {EditableSpan} from "./Components/EditableSpan";
 import {CustomInput} from "./Components/CustomInput";
@@ -7,6 +7,8 @@ import {Button, ButtonGroup, Grid} from "@mui/material";
 import {FilterValuesType} from "./state/toDoListsReducer";
 import {Task} from "./Components/Task";
 import {TaskStatuses, TaskType} from "./API/todolists-API";
+import {useDispatch} from "react-redux";
+import {fetchTasksTC} from "./state/tasksReducer";
 
 
 // types
@@ -28,6 +30,13 @@ type PropsType = {
 
 // component
 export const Todolist = React.memo((props: PropsType) => {
+
+    console.log('=== TODOLIST ===')
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchTasksTC(props.id))
+    }, [props.id])
 
 
     const removeTodolist = () => props.removeTodolist(props.id)
