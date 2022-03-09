@@ -1,5 +1,5 @@
 // imports
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import {CustomInput} from "./Components/CustomInput";
 import {Todolist} from "./TodoList";
@@ -9,7 +9,7 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import {
     addToDoListAC,
     ChangeToDoListFilterAC,
-    changeToDoListTitleAC,
+    changeToDoListTitleAC, fetchTodolistsThunk,
     FilterValuesType,
     removeToDoListAC, TodolistDomainType,
 } from "./state/toDoListsReducer";
@@ -26,10 +26,15 @@ import {rootReducerType} from "./state/state";
 // component
 function App() {
 
+    // state
     const tasks = useSelector<rootReducerType, TasksStateType>(state => state.tasks)
     const todolists = useSelector<rootReducerType, Array<TodolistDomainType>>(state => state.todolists)
-
     const dispatch = useDispatch()
+
+    // API
+    useEffect(() => {
+        fetchTodolistsThunk(dispatch)
+    })
 
     // functions handler for ToDo
     const removeTodolist = useCallback((id: string) => {
@@ -66,6 +71,7 @@ function App() {
     }, [dispatch])
 
 
+    // return
     return (
         <div className="App">
             <AppBar position="static">
