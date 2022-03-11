@@ -60,7 +60,7 @@ type ResponseType<D = {}> = {
     messages: Array<string>
     data: D
 }
-type UpdateTaskModelType = {
+export type UpdateTaskModelType = {
     title: string
     description: string
     status: number

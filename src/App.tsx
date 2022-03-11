@@ -9,9 +9,9 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import {
     addToDoListAC,
     ChangeToDoListFilterAC,
-    changeToDoListTitleAC, fetchTodolistsTC,
+    changeToDoListTitleAC, changeTodolistTitleTC, createTodolistTC, fetchTodolistsTC,
     FilterValuesType,
-    removeToDoListAC, TodolistDomainType,
+    removeToDoListAC, removeTodolistsTC, TodolistDomainType,
 } from "./state/toDoListsReducer";
 import {
     addTaskTC,
@@ -37,7 +37,8 @@ const App = memo(() => {
 
         // functions handler for ToDo
         const removeTodolist = useCallback((id: string) => {
-            dispatch(removeToDoListAC(id))
+            // dispatch(removeToDoListAC(id))
+            dispatch(removeTodolistsTC(id))
         }, [dispatch])
 
         const changeFilter = useCallback((value: FilterValuesType, todolistId: string) => {
@@ -45,11 +46,13 @@ const App = memo(() => {
         }, [dispatch])
 
         const changeToDoListTitle = useCallback((todolistId: string, title: string) => {
-            dispatch(changeToDoListTitleAC(todolistId, title))
+            // dispatch(changeToDoListTitleAC(todolistId, title))
+            dispatch(changeTodolistTitleTC(todolistId, title))
         }, [dispatch])
 
         const addToDoList = useCallback((title: string) => {
-            dispatch(addToDoListAC(title))
+            // dispatch(addToDoListAC(title))
+            dispatch(createTodolistTC(title))
         }, [dispatch])
 
 
@@ -71,6 +74,8 @@ const App = memo(() => {
 
         const updateTask = useCallback((todolistId: string, taskId: string, title: string) => {
             dispatch(changeTaskTitleAC(taskId, title, todolistId, 0))
+
+
         }, [dispatch])
 
 

@@ -1,6 +1,6 @@
 // imports
 import {v1} from "uuid";
-import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI} from "../API/todolists-API";
+import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from "../API/todolists-API";
 import {AddToDoListActionType, SetTodolistsActionType} from "./toDoListsReducer";
 import {Dispatch} from "redux";
 import {rootReducerType} from "./state";
@@ -82,7 +82,7 @@ export const tasksReducer = (state = initialState, action: ActionType): TasksSta
             return stateCopy
         case 'ADD_TODOLIST':
             const copyTasksADDTODO = {...state}
-            copyTasksADDTODO[action.newId] = []
+            copyTasksADDTODO[action.todolist.id] = []
             return copyTasksADDTODO
         case 'CHANGE_TASK_TITLE':
             return {
@@ -163,8 +163,6 @@ export const deleteTasksTC = (todolistId: string, taskId: string) => {
             })
     }
 }
-
-
 export const updateTaskStatusTC = (taskId: string, todolistId: string, status: TaskStatuses) => {
 
     return (dispatch: Dispatch, getState: () => rootReducerType) => {
@@ -190,3 +188,16 @@ export const updateTaskStatusTC = (taskId: string, todolistId: string, status: T
     }
 }
 
+// export const changeTaskTitleTC = (todolistId: string, taskId: string, model: UpdateTaskModelType) => {
+//     return (dispatch: Dispatch) => {
+//         const task: UpdateTaskModelType = {
+//             title:,
+//             description: string,
+//             status: number,
+//             priority: number,
+//             startDate: string,
+//             deadline: string,
+//         }
+//         todolistsAPI.updateTask(todolistId, taskId, model)
+//     }
+// }
