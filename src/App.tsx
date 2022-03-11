@@ -14,10 +14,9 @@ import {
     removeToDoListAC, TodolistDomainType,
 } from "./state/toDoListsReducer";
 import {
-    addTaskAC,
-    changeTaskStatusAC,
-    changeTaskTitleAC,
-    removeTaskAC, TasksStateType,
+    addTaskTC,
+    changeTaskTitleAC, deleteTasksTC,
+    TasksStateType, updateTaskStatusTC,
 } from "./state/tasksReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {rootReducerType} from "./state/state";
@@ -25,7 +24,7 @@ import {rootReducerType} from "./state/state";
 
 // component
 const App = memo(() => {
-    console.log('=== APP ===')
+        console.log('=== APP ===')
         // state
         const tasks = useSelector<rootReducerType, TasksStateType>(state => state.tasks)
         const todolists = useSelector<rootReducerType, Array<TodolistDomainType>>(state => state.todolists)
@@ -53,17 +52,21 @@ const App = memo(() => {
             dispatch(addToDoListAC(title))
         }, [dispatch])
 
+
         // functions handler for tasks
         const removeTask = useCallback((id: string, todolistId: string) => {
-            dispatch(removeTaskAC(id, todolistId))
+            // dispatch(removeTaskAC(id, todolistId))
+            dispatch(deleteTasksTC(todolistId, id))
         }, [dispatch])
 
         const addTask = useCallback((title: string, todolistId: string) => {
-            dispatch(addTaskAC(title, todolistId))
+            // dispatch(addTaskAC(title, todolistId))
+            dispatch(addTaskTC(todolistId, title))
         }, [dispatch])
 
         const changeStatusTask = useCallback((id: string, status: number, todolistId: string) => {
-            dispatch(changeTaskStatusAC(id, status, todolistId))
+            // dispatch(changeTaskStatusAC(id, status, todolistId))
+            dispatch(updateTaskStatusTC(id, todolistId, status))
         }, [dispatch])
 
         const updateTask = useCallback((todolistId: string, taskId: string, title: string) => {
