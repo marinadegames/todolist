@@ -7,17 +7,15 @@ import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography}
 import MenuIcon from '@mui/icons-material/Menu';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import {
-    addToDoListAC,
     ChangeToDoListFilterAC,
-    changeToDoListTitleAC, changeTodolistTitleTC, createTodolistTC, fetchTodolistsTC,
+    changeTodolistTitleTC,
+    createTodolistTC,
+    fetchTodolistsTC,
     FilterValuesType,
-    removeToDoListAC, removeTodolistsTC, TodolistDomainType,
+    removeTodolistsTC,
+    TodolistDomainType,
 } from "./state/toDoListsReducer";
-import {
-    addTaskTC,
-    changeTaskTitleAC, deleteTasksTC,
-    TasksStateType, updateTaskStatusTC,
-} from "./state/tasksReducer";
+import {addTaskTC, changeTaskTitleAC, deleteTasksTC, TasksStateType, updateTaskStatusTC,} from "./state/tasksReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {rootReducerType} from "./state/state";
 
@@ -123,8 +121,7 @@ const App = memo(() => {
                             todolists.map(tl => {
 
 
-                                let allTodolistTasks = tasks[tl.id];
-                                let tasksForTodolist = allTodolistTasks;
+                                let tasksForTodolist = tasks[tl.id];
 
 
                                 return <Grid item key={tl.id}>
