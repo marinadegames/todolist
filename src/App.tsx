@@ -15,7 +15,14 @@ import {
     removeTodolistsTC,
     TodolistDomainType,
 } from "./state/toDoListsReducer";
-import {addTaskTC, changeTaskTitleAC, deleteTasksTC, TasksStateType, updateTaskStatusTC,} from "./state/tasksReducer";
+import {
+    addTaskTC,
+    changeTaskTitleAC,
+    changeTaskTitleTC,
+    deleteTasksTC,
+    TasksStateType,
+    updateTaskStatusTC,
+} from "./state/tasksReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {rootReducerType} from "./state/state";
 
@@ -71,9 +78,8 @@ const App = memo(() => {
         }, [dispatch])
 
         const updateTask = useCallback((todolistId: string, taskId: string, title: string) => {
-            dispatch(changeTaskTitleAC(taskId, title, todolistId, 0))
-
-
+            // dispatch(changeTaskTitleAC(taskId, title, todolistId, 0))
+            dispatch(changeTaskTitleTC(todolistId, taskId, title))
         }, [dispatch])
 
 
