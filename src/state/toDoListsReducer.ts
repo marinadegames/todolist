@@ -26,23 +26,12 @@ let initialState: Array<TodolistDomainType> = []
 // reducer
 export const toDoListsReducer = (toDoLists = initialState, action: TodolistsActionType): Array<TodolistDomainType> => {
     switch (action.type) {
-        case 'REMOVE_TODOLIST':
-            return toDoLists.filter(tl => tl.id !== action.id)
-        case 'ADD_TODOLIST':
-            const newTodolist: TodolistDomainType = {...action.todolist, filter: 'all'}
-            return [newTodolist, ...toDoLists]
-        case 'CHANGE_TODOLIST_TITLE':
-            return toDoLists.map(td => action.id === td.id ? {...td, title: action.title} : td)
-        case 'CHANGE_TODOLIST_FILTER':
-            const toDoList = toDoLists.find(tl => tl.id === action.id)
-            if (toDoList) {
-                toDoList.filter = action.filter
-            }
-            return [...toDoLists]
-        case "SET_TODOLISTS":
-            return action.todolists.map(td => ({...td, filter: 'all'}))
-        default:
-            return toDoLists
+        case 'REMOVE_TODOLIST': return toDoLists.filter(tl => tl.id !== action.id)
+        case 'ADD_TODOLIST': return [{...action.todolist, filter: 'all'}, ...toDoLists]
+        case 'CHANGE_TODOLIST_TITLE': return toDoLists.map(td => action.id === td.id ? {...td, title: action.title} : td)
+        case 'CHANGE_TODOLIST_FILTER': return toDoLists.map(td => td.id === action.id ? {...td, filter: action.filter} : td)
+        case "SET_TODOLISTS": return action.todolists.map(td => ({...td, filter: 'all'}))
+        default:return toDoLists
     }
 }
 
