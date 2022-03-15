@@ -7,7 +7,7 @@ import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography}
 import MenuIcon from '@mui/icons-material/Menu';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import {
-    ChangeToDoListFilterAC,
+    changeToDoListFilterAC,
     changeTodolistTitleTC,
     createTodolistTC,
     fetchTodolistsTC,
@@ -17,7 +17,6 @@ import {
 } from "./state/toDoListsReducer";
 import {
     addTaskTC,
-    changeTaskTitleAC,
     changeTaskTitleTC,
     deleteTasksTC,
     TasksStateType,
@@ -47,7 +46,7 @@ const App = memo(() => {
         }, [dispatch])
 
         const changeFilter = useCallback((value: FilterValuesType, todolistId: string) => {
-            dispatch(ChangeToDoListFilterAC(todolistId, value))
+            dispatch(changeToDoListFilterAC(todolistId, value))
         }, [dispatch])
 
         const changeToDoListTitle = useCallback((todolistId: string, title: string) => {

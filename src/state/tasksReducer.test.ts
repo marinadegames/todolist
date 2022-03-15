@@ -9,7 +9,7 @@ import {
 } from "./tasksReducer";
 import {v1} from "uuid";
 import {TaskPriorities, TaskStatuses} from "../API/todolists-API";
-import {SetTodolistsAC} from "./toDoListsReducer";
+import {setTodolistsAC} from "./toDoListsReducer";
 
 // start state
 let todolistId1: string = v1();
@@ -139,7 +139,7 @@ test('CHANGE TASK', () => {
     expect(endState[todolistId1][0].status).toBe(3);
 });
 test('SET TASKS BEFORE SET TODOLISTS', () => {
-    const action = SetTodolistsAC([
+    const action = setTodolistsAC([
         {id: '1', title: 'title1', order: 0, addedDate: ''},
         {id: '2', title: 'title2', order: 0, addedDate: ''},
     ])
