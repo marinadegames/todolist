@@ -3,6 +3,8 @@ import {v1} from "uuid";
 import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI} from "../API/todolists-API";
 import {addToDoListAC, setTodolistsAC} from "./toDoListsReducer";
 import {AppThunk, rootReducerType} from "./state";
+import {setErrorAC, SetErrorAT} from "./appReducer";
+
 
 // types
 export type TasksStateType = {
@@ -46,11 +48,15 @@ export const tasksReducer = (state = initialState, action: TasksActionType): Tas
             const newTasksADD = [...tasks, newTaskADD]
             stateCopy[action.todolistId] = newTasksADD
             return stateCopy
-        case 'ADD_TODOLIST':return {...state, [action.todolist.id]: []}
-        case 'CHANGE_TASK_TITLE': return {...state, [action.todolistId]: state[action.todolistId].map(m => m.id === action.id ? {
+        case 'ADD_TODOLIST':
+            return {...state, [action.todolist.id]: []}
+        case 'CHANGE_TASK_TITLE':
+            return {
+                ...state, [action.todolistId]: state[action.todolistId].map(m => m.id === action.id ? {
                     ...m,
                     title: action.title
-                } : m)}
+                } : m)
+            }
         case 'CHANGE_STATUS_TITLE':
             let todolistTasks = state[action.todolistId];
             let task = todolistTasks.find(t => t.id === action.id);
@@ -62,7 +68,6 @@ export const tasksReducer = (state = initialState, action: TasksActionType): Tas
         case "SET_TODOLISTS":
             const copyState = {...state}
             action.todolists.forEach(td => copyState[td.id] = [])
-
             return copyState
         case "SET_TASKS":
             const copyState2 = {...state}
@@ -86,6 +91,7 @@ export const changeTaskStatusAC = (id: string, status: number, todolistId: strin
 export const setTasksAC = (tasks: Array<TaskType>, todolistId: string) => (
     {type: "SET_TASKS", tasks, todolistId} as const)
 
+
 // thunks
 export const fetchTasksTC = (todolistId: string): AppThunk => async dispatch => {
     try {
@@ -100,11 +106,21 @@ export const fetchTasksTC = (todolistId: string): AppThunk => async dispatch => 
         console.warn(e)
     }
 }
-export const addTaskTC = (todolistId: string, title: string): AppThunk => async dispatch => {
+export const addTaskTC = (todolistId: string, title: string): AppThunk => async (dispatch: any | SetErrorAT) => {
     try {
-        const resp = todolistsAPI.createTask(todolistId, title)
-        dispatch(addTaskAC(title, todolistId))
-        console.log(resp)
+
+        const resp = await todolistsAPI.createTask(todolistId, title)
+        if (resp.data.resultCode === 0) {
+            dispatch(addTaskAC(title, todolistId))
+            console.log(resp)
+        } else {
+            if (resp.data.messages.length) {
+                dispatch(setErrorAC(resp.data.messages[0]))
+            } else {
+                dispatch(setErrorAC('some error'))
+            }
+        }
+
     } catch (e) {
         console.warn(e)
     }

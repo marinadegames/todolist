@@ -3,7 +3,7 @@ import React, {memo, useCallback, useEffect} from 'react';
 import './App.css';
 import {CustomInput} from "./Components/CustomInput";
 import {Todolist} from "./TodoList";
-import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
+import {AppBar, Button, Container, Grid, IconButton, LinearProgress, Paper, Toolbar, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import {
@@ -24,6 +24,7 @@ import {
 } from "./state/tasksReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {rootReducerType} from "./state/state";
+import {CustomizedSnackbars} from "./Components/ErrorSnackBar";
 
 
 // component
@@ -41,7 +42,6 @@ const App = memo(() => {
 
         // functions handler for ToDo
         const removeTodolist = useCallback((id: string) => {
-            // dispatch(removeToDoListAC(id))
             dispatch(removeTodolistsTC(id))
         }, [dispatch])
 
@@ -50,42 +50,38 @@ const App = memo(() => {
         }, [dispatch])
 
         const changeToDoListTitle = useCallback((todolistId: string, title: string) => {
-            // dispatch(changeToDoListTitleAC(todolistId, title))
             dispatch(changeTodolistTitleTC(todolistId, title))
         }, [dispatch])
 
         const addToDoList = useCallback((title: string) => {
-            // dispatch(addToDoListAC(title))
             dispatch(createTodolistTC(title))
         }, [dispatch])
 
 
         // functions handler for tasks
         const removeTask = useCallback((id: string, todolistId: string) => {
-            // dispatch(removeTaskAC(id, todolistId))
+
             dispatch(deleteTasksTC(todolistId, id))
         }, [dispatch])
 
         const addTask = useCallback((title: string, todolistId: string) => {
-            // dispatch(addTaskAC(title, todolistId))
             dispatch(addTaskTC(todolistId, title))
         }, [dispatch])
 
         const changeStatusTask = useCallback((id: string, status: number, todolistId: string) => {
-            // dispatch(changeTaskStatusAC(id, status, todolistId))
             dispatch(updateTaskStatusTC(id, todolistId, status))
         }, [dispatch])
 
         const updateTask = useCallback((todolistId: string, taskId: string, title: string) => {
-            // dispatch(changeTaskTitleAC(taskId, title, todolistId, 0))
             dispatch(changeTaskTitleTC(todolistId, taskId, title))
         }, [dispatch])
-
 
         // return
         return (
             <div className="App">
+
                 <AppBar position="static">
+                    {/*HEADER*/}
                     <Toolbar>
                         <IconButton
                             size="large"
@@ -99,11 +95,14 @@ const App = memo(() => {
                         <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                             News
                         </Typography>
+                        <CustomizedSnackbars/>
                         <IconButton>
                             <Brightness4Icon color="disabled"/>
                         </IconButton>
                         <Button color="inherit">Login</Button>
                     </Toolbar>
+                    <LinearProgress/>
+                    {/*HEADER*/}
                 </AppBar>
                 <Container>
                     <Grid xs={12}
