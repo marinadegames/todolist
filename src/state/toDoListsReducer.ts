@@ -1,6 +1,7 @@
 // imports
 import {todolistsAPI, TodolistType} from "../API/todolists-API";
 import {AppThunk} from "./state";
+import {setStatusAC} from "./appReducer";
 
 // types
 export type AddToDoListActionType = ReturnType<typeof addToDoListAC>
@@ -56,38 +57,46 @@ export const setTodolistsAC = (todolists: Array<TodolistType>) => ({type: "SET_T
 
 
 // thunks
-export const fetchTodolistsTC = (): AppThunk => async dispatch => {
+export const fetchTodolistsTC = (): AppThunk => async (dispatch: any) => {
     try {
+        dispatch(setStatusAC('loading'))
         const resp = await todolistsAPI.getTodolists()
         dispatch(setTodolistsAC(resp.data))
         console.log(resp)
+        dispatch(setStatusAC('succeeded'))
     } catch (e) {
         console.warn(e)
     }
 }
-export const removeTodolistsTC = (todolistId: string): AppThunk => async dispatch => {
+export const removeTodolistsTC = (todolistId: string): AppThunk => async (dispatch: any) => {
     try {
+        dispatch(setStatusAC('loading'))
         const resp = await todolistsAPI.deleteTodolist(todolistId)
         dispatch(removeToDoListAC(todolistId))
         console.log(resp)
+        dispatch(setStatusAC('succeeded'))
     } catch (e) {
         console.warn(e)
     }
 }
-export const createTodolistTC = (title: string): AppThunk => async dispatch => {
+export const createTodolistTC = (title: string): AppThunk => async (dispatch: any) => {
     try {
+        dispatch(setStatusAC('loading'))
         const resp = await todolistsAPI.createTodolist(title)
         dispatch(addToDoListAC(resp.data.data.item))
         console.log(resp)
+        dispatch(setStatusAC('succeeded'))
     } catch (e) {
         console.warn(e)
     }
 }
-export const changeTodolistTitleTC = (todolistId: string, title: string): AppThunk => async dispatch => {
+export const changeTodolistTitleTC = (todolistId: string, title: string): AppThunk => async (dispatch: any) => {
     try {
+        dispatch(setStatusAC('loading'))
         const resp = todolistsAPI.updateTodolist(todolistId, title)
         dispatch(changeToDoListTitleAC(todolistId, title))
         console.log(resp)
+        dispatch(setStatusAC('succeeded'))
     } catch (e) {
         console.warn(e)
     }

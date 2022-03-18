@@ -25,6 +25,7 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {rootReducerType} from "./state/state";
 import {CustomizedSnackbars} from "./Components/ErrorSnackBar";
+import {StatusesType} from "./state/appReducer";
 
 
 // component
@@ -33,6 +34,7 @@ const App = memo(() => {
         // state
         const tasks = useSelector<rootReducerType, TasksStateType>(state => state.tasks)
         const todolists = useSelector<rootReducerType, Array<TodolistDomainType>>(state => state.todolists)
+        const status = useSelector<rootReducerType, StatusesType>(state => state.app.status)
         const dispatch = useDispatch()
 
         // API
@@ -101,7 +103,7 @@ const App = memo(() => {
                         </IconButton>
                         <Button color="inherit">Login</Button>
                     </Toolbar>
-                    <LinearProgress/>
+                    {status === 'loading' && <LinearProgress/>}
                     {/*HEADER*/}
                 </AppBar>
                 <Container>

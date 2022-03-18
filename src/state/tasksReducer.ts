@@ -3,7 +3,7 @@ import {v1} from "uuid";
 import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI} from "../API/todolists-API";
 import {addToDoListAC, setTodolistsAC} from "./toDoListsReducer";
 import {AppThunk, rootReducerType} from "./state";
-import {setErrorAC, SetErrorAT} from "./appReducer";
+import {setErrorAC, SetErrorAT, setStatusAC, SetStatusAT} from "./appReducer";
 
 
 // types
@@ -93,14 +93,16 @@ export const setTasksAC = (tasks: Array<TaskType>, todolistId: string) => (
 
 
 // thunks
-export const fetchTasksTC = (todolistId: string): AppThunk => async dispatch => {
+export const fetchTasksTC = (todolistId: string): AppThunk => async (dispatch: any | SetStatusAT) => {
+
     try {
+        dispatch(setStatusAC('loading'))
         const resp = await todolistsAPI.getTasks(todolistId)
         if (resp.data.items.length !== 0) {
             const tasks = resp.data.items
             const action = setTasksAC(tasks, todolistId)
             dispatch(action)
-            console.log(resp)
+            dispatch(setStatusAC('succeeded'))
         }
     } catch (e) {
         console.warn(e)
@@ -108,11 +110,11 @@ export const fetchTasksTC = (todolistId: string): AppThunk => async dispatch => 
 }
 export const addTaskTC = (todolistId: string, title: string): AppThunk => async (dispatch: any | SetErrorAT) => {
     try {
-
+        dispatch(setStatusAC('loading'))
         const resp = await todolistsAPI.createTask(todolistId, title)
         if (resp.data.resultCode === 0) {
             dispatch(addTaskAC(title, todolistId))
-            console.log(resp)
+            dispatch(setStatusAC('succeeded'))
         } else {
             if (resp.data.messages.length) {
                 dispatch(setErrorAC(resp.data.messages[0]))
@@ -125,17 +127,20 @@ export const addTaskTC = (todolistId: string, title: string): AppThunk => async 
         console.warn(e)
     }
 }
-export const deleteTasksTC = (todolistId: string, taskId: string): AppThunk => async dispatch => {
+export const deleteTasksTC = (todolistId: string, taskId: string): AppThunk => async (dispatch: any) => {
     try {
-        const resp = todolistsAPI.deleteTask(todolistId, taskId)
+        dispatch(setStatusAC('loading'))
+        const resp = await todolistsAPI.deleteTask(todolistId, taskId)
         dispatch(removeTaskAC(taskId, todolistId))
         console.log(resp)
+        dispatch(setStatusAC('succeeded'))
     } catch (e) {
         console.warn(e)
     }
 }
-export const updateTaskStatusTC = (taskId: string, todolistId: string, status: TaskStatuses): AppThunk => async (dispatch, getState: () => rootReducerType) => {
+export const updateTaskStatusTC = (taskId: string, todolistId: string, status: TaskStatuses): AppThunk => async (dispatch: any, getState: () => rootReducerType) => {
     try {
+        dispatch(setStatusAC('loading'))
         const allTasksFromState = getState().tasks;
         const tasksForCurrentTodolist = allTasksFromState[todolistId]
         const task = tasksForCurrentTodolist.find(t => {
@@ -152,6 +157,7 @@ export const updateTaskStatusTC = (taskId: string, todolistId: string, status: T
             })
             const action = changeTaskStatusAC(taskId, status, todolistId)
             dispatch(action)
+            dispatch(setStatusAC('succeeded'))
             console.log(resp)
         }
     } catch (e) {
@@ -159,9 +165,10 @@ export const updateTaskStatusTC = (taskId: string, todolistId: string, status: T
     }
 }
 export const changeTaskTitleTC = (todolistId: string, taskId: string, title: string): AppThunk => async (
-    dispatch,
+    dispatch: any,
     getState: () => rootReducerType) => {
     try {
+        dispatch(setStatusAC('loading'))
         const allTasksFromState = getState().tasks;
         const tasksForCurrentTodolist = allTasksFromState[todolistId]
         const task = tasksForCurrentTodolist.find(t => {
@@ -178,6 +185,7 @@ export const changeTaskTitleTC = (todolistId: string, taskId: string, title: str
                 status: task.status
             })
             dispatch(changeTaskTitleAC(taskId, title, todolistId, task.status))
+            dispatch(setStatusAC('succeeded'))
             console.log(resp)
         }
     } catch (e) {

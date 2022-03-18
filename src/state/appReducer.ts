@@ -5,7 +5,7 @@ export type InitialStateType = {
     status: StatusesType
     error: string | null
 }
-type StatusesType = 'idle' | 'loading' | 'succeeded' | 'failed'
+export type StatusesType = 'idle' | 'loading' | 'succeeded' | 'failed'
 type ActionType = SetStatusAT | SetErrorAT
 export type SetErrorAT = {
     type: 'APP/SET_ERROR'
