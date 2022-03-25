@@ -1,14 +1,6 @@
 // imports
 import axios from "axios";
 
-// settings
-const instance = axios.create({
-    baseURL: 'https://social-network.samuraijs.com/api/1.1/',
-    withCredentials: true,
-    headers: {
-        'API-KEY': '20af6c8d-612b-4369-bc4f-11b94638fe2f',
-    },
-})
 
 // types
 export type TodolistType = {
@@ -69,14 +61,12 @@ export type UpdateTaskModelType = {
     startDate: string
     deadline: string
 }
-
 export enum TaskStatuses {
     New = 0,
     InProgress = 1,
     Completed = 2,
     Draft = 3,
 }
-
 export enum TaskPriorities {
     Low = 0,
     Middle = 1,
@@ -84,6 +74,17 @@ export enum TaskPriorities {
     Urgently = 3,
     Later = 4,
 }
+
+
+// settings
+const instance = axios.create({
+    baseURL: 'https://social-network.samuraijs.com/api/1.1/',
+    withCredentials: true,
+    headers: {
+        'API-KEY': '20af6c8d-612b-4369-bc4f-11b94638fe2f',
+    },
+})
+
 
 // api
 export const todolistsAPI = {

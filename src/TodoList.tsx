@@ -31,9 +31,8 @@ type PropsType = {
 // component
 export const Todolist = React.memo((props: PropsType) => {
 
-    console.log('=== TODOLIST ===')
-    const dispatch = useDispatch()
 
+    const dispatch = useDispatch()
     useEffect(() => {
         dispatch(fetchTasksTC(props.id))
     }, [props.id])

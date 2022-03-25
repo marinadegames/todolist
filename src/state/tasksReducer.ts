@@ -99,13 +99,17 @@ export const fetchTasksTC = (todolistId: string): AppThunk => async (dispatch: a
         dispatch(setStatusAC('loading'))
         const resp = await todolistsAPI.getTasks(todolistId)
         if (resp.data.items.length !== 0) {
+
             const tasks = resp.data.items
             const action = setTasksAC(tasks, todolistId)
             dispatch(action)
-            dispatch(setStatusAC('succeeded'))
+
         }
     } catch (e) {
         console.warn(e)
+    }
+    finally {
+        dispatch(setStatusAC('succeeded'))
     }
 }
 export const addTaskTC = (todolistId: string, title: string): AppThunk => async (dispatch: any | SetErrorAT) => {

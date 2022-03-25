@@ -83,9 +83,8 @@ export const createTodolistTC = (title: string): AppThunk => async (dispatch: an
     try {
         dispatch(setStatusAC('loading'))
         const resp = await todolistsAPI.createTodolist(title)
-        dispatch(addToDoListAC(resp.data.data.item))
-        console.log(resp)
         dispatch(setStatusAC('succeeded'))
+        dispatch(addToDoListAC(resp.data.data.item))
     } catch (e) {
         console.warn(e)
     }
