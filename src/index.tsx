@@ -6,11 +6,35 @@ import * as serviceWorker from './serviceWorker';
 import {Provider} from "react-redux";
 import {store} from "./state/state";
 import {BrowserRouter} from "react-router-dom";
+import {createTheme, ThemeProvider} from '@mui/material/styles';
+
+const theme = createTheme({
+    palette: {
+
+        primary: {
+            main: '#a174d9'
+        },
+        secondary: {
+            main: '#e3e9ff'
+        },
+        error: {
+            main: '#e37482'
+        },
+        success: {
+            main: '#2eac64'
+        },
+        background: {
+            default: '#e3e9ff'
+        },
+    }
+})
 
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
-            <App/>
+            <ThemeProvider theme={theme}>
+                <App/>
+            </ThemeProvider>
         </BrowserRouter>
     </Provider>, document.getElementById('root'));
 

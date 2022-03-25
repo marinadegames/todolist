@@ -12,6 +12,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {loginTC} from "../state/authReducer";
 import {rootReducerType} from "../state/state";
 import {Navigate} from 'react-router-dom';
+import {Typography} from "@mui/material";
 
 
 type FormikErrorType = {
@@ -49,7 +50,7 @@ export const Login = memo(() => {
 
             onSubmit: values => {
                 dispatch(loginTC(values))
-                console.table(JSON.stringify(values, null, 2));
+                formik.resetForm()
             },
         });
 
@@ -59,28 +60,31 @@ export const Login = memo(() => {
             <Grid item justifyContent={'center'}>
                 <form onSubmit={formik.handleSubmit}>
                     <FormControl>
-                        <FormLabel>
-                            <p>To log in get registered
+                        <FormLabel style={{textAlign: "center", margin: '70px 0 0 0'}}>
+                            <Typography variant={'h4'}>Hello, friend!</Typography>
+                            <Typography variant={'h6'}>To log in get registered
                                 <a href={'https://social-network.samuraijs.com/'}
                                    target={'_blank'}> here
                                 </a>
-                            </p>
-                            <p>or use common test account credentials:</p>
-                            <p>Email: free@samuraijs.com</p>
-                            <p>Password: free</p>
+                            </Typography>
+                            <Typography variant={'h6'}>or use common test account credentials:</Typography>
+                            <Typography variant={'h6'}>Email: free@samuraijs.com</Typography>
+                            <Typography variant={'h6'}>Password: free</Typography>
                         </FormLabel>
                         <FormGroup>
                             <TextField label="email"
                                        margin="normal"
                                        {...formik.getFieldProps('email')}
                             />
-                            {formik.errors.email && <div style={{color: 'red'}}>{formik.errors.email}</div>}
+                            {formik.touched.email && formik.errors.email &&
+                                <div style={{color: 'red'}}>{formik.errors.email}</div>}
                             <TextField type={"password"}
                                        label="Password"
                                        margin="normal"
                                        {...formik.getFieldProps('password')}
                             />
-                            {formik.errors.password && <div style={{color: 'red'}}>{formik.errors.password}</div>}
+                            {formik.touched.password && formik.errors.password &&
+                                <div style={{color: 'red'}}>{formik.errors.password}</div>}
                             <FormControlLabel label={'Remember me'}
                                               control={<Checkbox {...formik.getFieldProps('rememberMe')}
                                                                  checked={formik.values.rememberMe}/>}/>

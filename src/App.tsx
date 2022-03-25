@@ -1,18 +1,26 @@
 // imports
 import React, {memo, useCallback, useEffect} from 'react';
 import './App.css';
-import {AppBar, Button, CircularProgress, IconButton, LinearProgress, Toolbar, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
 import {useDispatch, useSelector} from "react-redux";
 import {rootReducerType} from "./state/state";
 import {CustomizedSnackbars} from "./Components/ErrorSnackBar";
 import {initializedAppTC, StatusesType} from "./state/appReducer";
 import {TodolistsList} from "./TodolistsList";
-import {Routes, Route, NavLink} from 'react-router-dom';
+import {NavLink, Route, Routes} from 'react-router-dom';
 import {Login} from "./Login/Login";
 import {logoutTC} from "./state/authReducer";
-
+import {
+    AppBar,
+    Button,
+    CircularProgress,
+    Container,
+    IconButton,
+    LinearProgress,
+    Toolbar,
+    Typography
+} from "@mui/material";
+import NightlightSharpIcon from '@mui/icons-material/NightlightSharp';
 
 // component
 const App = memo(() => {
@@ -38,55 +46,45 @@ const App = memo(() => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     width: '100%',
-                    height: '90vh'
+                    height: '100vh'
                 }}>
                     <CircularProgress/>
                 </div>
             )
         }
 
-
-
         return (
-            <div className="App">
-                <AppBar position="static">
-                    {/*HEADER*/}
+            <Container sx={{padding: '2rem', height: '100vh'}} maxWidth={false}>
+
+                {/*HEADER*/}
+                <AppBar position="static" sx={{padding: '1rem', borderRadius: 3}}>
                     <Toolbar>
-                        <IconButton
-                            size="large"
-                            edge="start"
-                            color="inherit"
-                            aria-label="menu"
-                            sx={{mr: 2}}
-                        >
+                        <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{mr: 2}}>
                             <MenuIcon/>
                         </IconButton>
-                        <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
-                            News
-                        </Typography>
+                        <NightlightSharpIcon/>
+                        <Typography variant="h4" component="div" sx={{flexGrow: 1}}>Moon!task</Typography>
                         <CustomizedSnackbars/>
-                        <IconButton>
-                            <Brightness4Icon color="disabled"/>
-                        </IconButton>
 
                         {isLoggedIn
                             ? <Button color='error' variant="contained" onClick={logoutHandler}>Log out</Button>
                             :
-                            <NavLink to={'/login'}>
+                            <NavLink to={'/login'} style={{textDecoration: 'none'}}>
                                 <Button color="success" variant="contained">Login</Button>
                             </NavLink>
                         }
 
                     </Toolbar>
                     {status === 'loading' && <LinearProgress/>}
-                    {/*HEADER*/}
                 </AppBar>
+                {/*HEADER*/}
+
                 <Routes>
                     <Route path={'*'} element={<h1>404 NOT FOUND</h1>}/>
                     <Route path={'/'} element={<TodolistsList/>}/>
                     <Route path={'login'} element={<Login/>}/>
                 </Routes>
-            </div>
+            </Container>
         );
 
     }
