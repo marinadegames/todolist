@@ -57,20 +57,20 @@ const App = memo(() => {
             <Container sx={{padding: '2rem', height: '100vh'}} maxWidth={false}>
 
                 {/*HEADER*/}
-                <AppBar position="static" sx={{padding: '1rem', borderRadius: 3}}>
+                <AppBar position="static" sx={{padding: '0.8rem', borderRadius: 3}}>
                     <Toolbar>
                         <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{mr: 2}}>
                             <MenuIcon/>
                         </IconButton>
                         <NightlightSharpIcon/>
-                        <Typography variant="h4" component="div" sx={{flexGrow: 1}}>Moon!task</Typography>
+                        <Typography variant="h4" component="div" sx={{flexGrow: 1}}>Moon!tasks</Typography>
                         <CustomizedSnackbars/>
 
                         {isLoggedIn
-                            ? <Button color='error' variant="contained" onClick={logoutHandler}>Log out</Button>
+                            ? <Button color='secondary' variant="contained" onClick={logoutHandler}>Log out</Button>
                             :
                             <NavLink to={'/login'} style={{textDecoration: 'none'}}>
-                                <Button color="success" variant="contained">Login</Button>
+                                <Button size={"large"} color="secondary" variant="contained">Login</Button>
                             </NavLink>
                         }
 

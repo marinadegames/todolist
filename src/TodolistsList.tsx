@@ -13,16 +13,16 @@ import {
 import {Container, Grid, Paper} from "@mui/material";
 import {Todolist} from "./TodoList";
 import {CustomInput} from "./Components/CustomInput";
-import { Navigate } from "react-router-dom";
+import {Navigate} from "react-router-dom";
 
 
 export const TodolistsList = memo(() => {
+
     // state
     const tasks = useSelector<rootReducerType, TasksStateType>(state => state.tasks)
     const todolists = useSelector<rootReducerType, Array<TodolistDomainType>>(state => state.todolists)
     const isLoggedIn = useSelector<rootReducerType, boolean>(state => state.auth.isLoggedIn)
     const dispatch = useDispatch()
-
 
     // API
     useEffect(() => {
@@ -65,9 +65,9 @@ export const TodolistsList = memo(() => {
         dispatch(changeTaskTitleTC(todolistId, taskId, title))
     }, [dispatch])
 
-    if (!isLoggedIn) return <Navigate to={'/login'} />
+    if (!isLoggedIn) return <Navigate to={'/login'}/>
     return (
-        <Container>
+        <Container maxWidth={false}>
             <Grid xs={12}
                   container
                   item={true}

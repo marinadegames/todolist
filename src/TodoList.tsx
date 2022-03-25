@@ -119,17 +119,21 @@ export const Todolist = React.memo((props: PropsType) => {
             <Grid container
                   style={{margin: '1rem 0 0 0'}}
                   justifyContent={'center'}
-                  alignItems={'center'}>
-                <ButtonGroup aria-label="outlined button group">
-                    <Button variant={props.filter === 'all' ? "contained" : "outlined"}
+                  alignItems={'center'}
+                  sx={{width: 1}}
+            >
+                <ButtonGroup sx={{width: 1}} aria-label="outlined button group">
+                    <Button sx={{width: 1 / 2}} variant={props.filter === 'all' ? "contained" : "outlined"}
                             onClick={onAllClickHandler}>All
                     </Button>
-                    <Button color={'success'}
+                    <Button color={'info'}
+                            sx={{width: 1 / 2}}
                             variant={props.filter === 'active' ? "contained" : "outlined"}
                             className={props.filter === 'active' ? "active-filter" : ""}
                             onClick={onActiveClickHandler}>Active
                     </Button>
-                    <Button color={'secondary'}
+                    <Button color={'success'}
+                            sx={{width: 1}}
                             variant={props.filter === 'completed' ? "contained" : "outlined"}
                             className={props.filter === 'completed' ? "active-filter" : ""}
                             onClick={onCompletedClickHandler}>Completed
