@@ -5,15 +5,13 @@ import {setErrorAC, setStatusAC} from "./appReducer";
 
 
 // initial state
-
-let initialState: InitialStateType = {
+let initialState: InitialStateTypeAuth = {
     isLoggedIn: false
-
 }
 
 
 // reducer
-export const authReducer = (state = initialState, action: ActionsType): InitialStateType => {
+export const authReducer = (state = initialState, action: ActionsTypeAuth): InitialStateTypeAuth => {
     switch (action.type) {
         case "login/SET_IS_LOGGED_IN":
             return {...state, isLoggedIn: action.value}
@@ -48,10 +46,23 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<any>) => {
         })
     dispatch(setStatusAC('idle'))
 }
+export const logoutTC = () => (dispatch: Dispatch<any>) => {
+    dispatch(setStatusAC('loading'))
+    authAPI.logout()
+        .then(resp => {
+            if (resp.data.resultCode === 0) {
+                dispatch(setIsLoggedInAC(false))
+                dispatch(setStatusAC('succeeded'))
+            }
+        })
+        .catch(error => {
+            console.warn(error)
+        })
+}
 
 
 // types
-type InitialStateType = {
+type InitialStateTypeAuth = {
     isLoggedIn: boolean
 }
-type ActionsType = ReturnType<typeof setIsLoggedInAC>
+type ActionsTypeAuth = any

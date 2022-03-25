@@ -1,5 +1,5 @@
 // imports
-import React, {memo, useEffect} from 'react';
+import React, {memo, useCallback, useEffect} from 'react';
 import './App.css';
 import {AppBar, Button, CircularProgress, IconButton, LinearProgress, Toolbar, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
@@ -11,6 +11,7 @@ import {initializedAppTC, StatusesType} from "./state/appReducer";
 import {TodolistsList} from "./TodolistsList";
 import {Routes, Route, NavLink} from 'react-router-dom';
 import {Login} from "./Login/Login";
+import {logoutTC} from "./state/authReducer";
 
 
 // component
@@ -18,11 +19,17 @@ const App = memo(() => {
 
         const status = useSelector<rootReducerType, StatusesType>(state => state.app.status)
         const initialized = useSelector<rootReducerType, boolean>(state => state.app.isInitialized)
+        const isLoggedIn = useSelector<rootReducerType, boolean>(state => state.auth.isLoggedIn)
         const dispatch = useDispatch()
 
         useEffect(() => {
             dispatch(initializedAppTC())
         }, [])
+
+        const logoutHandler = useCallback(() => {
+            dispatch(logoutTC())
+        }, [])
+
 
         if (!initialized) {
             return (
@@ -37,6 +44,8 @@ const App = memo(() => {
                 </div>
             )
         }
+
+
 
         return (
             <div className="App">
@@ -59,9 +68,15 @@ const App = memo(() => {
                         <IconButton>
                             <Brightness4Icon color="disabled"/>
                         </IconButton>
-                        <NavLink to={'/login'}>
-                            <Button color="inherit">Login</Button>
-                        </NavLink>
+
+                        {isLoggedIn
+                            ? <Button color='error' variant="contained" onClick={logoutHandler}>Log out</Button>
+                            :
+                            <NavLink to={'/login'}>
+                                <Button color="success" variant="contained">Login</Button>
+                            </NavLink>
+                        }
+
                     </Toolbar>
                     {status === 'loading' && <LinearProgress/>}
                     {/*HEADER*/}

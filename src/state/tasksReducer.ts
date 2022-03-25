@@ -5,7 +5,6 @@ import {addToDoListAC, setTodolistsAC} from "./toDoListsReducer";
 import {AppThunk, rootReducerType} from "./state";
 import {setErrorAC, setStatusAC} from "./appReducer";
 
-
 // types
 export type TasksStateType = {
     [key: string]: Array<TaskType>
@@ -92,7 +91,6 @@ export const setTasksAC = (tasks: Array<TaskType>, todolistId: string) => (
     {type: "SET_TASKS", tasks, todolistId} as const)
 
 
-
 // thunks
 export const fetchTasksTC = (todolistId: string): AppThunk => async (dispatch: any | ReturnType<typeof setStatusAC>) => {
 
@@ -108,8 +106,7 @@ export const fetchTasksTC = (todolistId: string): AppThunk => async (dispatch: a
         }
     } catch (e) {
         console.warn(e)
-    }
-    finally {
+    } finally {
         dispatch(setStatusAC('succeeded'))
     }
 }

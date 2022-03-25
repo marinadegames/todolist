@@ -23,7 +23,6 @@ export const TodolistsList = memo(() => {
     const isLoggedIn = useSelector<rootReducerType, boolean>(state => state.auth.isLoggedIn)
     const dispatch = useDispatch()
 
-    if (!isLoggedIn) return <Navigate to={'/login'} />
 
     // API
     useEffect(() => {
@@ -66,6 +65,7 @@ export const TodolistsList = memo(() => {
         dispatch(changeTaskTitleTC(todolistId, taskId, title))
     }, [dispatch])
 
+    if (!isLoggedIn) return <Navigate to={'/login'} />
     return (
         <Container>
             <Grid xs={12}
