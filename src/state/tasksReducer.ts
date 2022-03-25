@@ -3,7 +3,7 @@ import {v1} from "uuid";
 import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI} from "../API/todolists-API";
 import {addToDoListAC, setTodolistsAC} from "./toDoListsReducer";
 import {AppThunk, rootReducerType} from "./state";
-import {setErrorAC, SetErrorAT, setStatusAC, SetStatusAT} from "./appReducer";
+import {setErrorAC, setStatusAC} from "./appReducer";
 
 
 // types
@@ -92,8 +92,9 @@ export const setTasksAC = (tasks: Array<TaskType>, todolistId: string) => (
     {type: "SET_TASKS", tasks, todolistId} as const)
 
 
+
 // thunks
-export const fetchTasksTC = (todolistId: string): AppThunk => async (dispatch: any | SetStatusAT) => {
+export const fetchTasksTC = (todolistId: string): AppThunk => async (dispatch: any | ReturnType<typeof setStatusAC>) => {
 
     try {
         dispatch(setStatusAC('loading'))
@@ -112,7 +113,7 @@ export const fetchTasksTC = (todolistId: string): AppThunk => async (dispatch: a
         dispatch(setStatusAC('succeeded'))
     }
 }
-export const addTaskTC = (todolistId: string, title: string): AppThunk => async (dispatch: any | SetErrorAT) => {
+export const addTaskTC = (todolistId: string, title: string): AppThunk => async (dispatch: any | ReturnType<typeof setErrorAC>) => {
     try {
         dispatch(setStatusAC('loading'))
         const resp = await todolistsAPI.createTask(todolistId, title)

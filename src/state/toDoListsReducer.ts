@@ -65,6 +65,7 @@ export const fetchTodolistsTC = (): AppThunk => async (dispatch: any) => {
         console.log(resp)
         dispatch(setStatusAC('succeeded'))
     } catch (e) {
+
         console.warn(e)
     }
 }

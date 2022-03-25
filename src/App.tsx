@@ -1,25 +1,43 @@
 // imports
-import React, {memo} from 'react';
+import React, {memo, useEffect} from 'react';
 import './App.css';
-import {AppBar, Button, IconButton, LinearProgress, Toolbar, Typography} from "@mui/material";
+import {AppBar, Button, CircularProgress, IconButton, LinearProgress, Toolbar, Typography} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {rootReducerType} from "./state/state";
 import {CustomizedSnackbars} from "./Components/ErrorSnackBar";
-import {StatusesType} from "./state/appReducer";
+import {initializedAppTC, StatusesType} from "./state/appReducer";
 import {TodolistsList} from "./TodolistsList";
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, NavLink} from 'react-router-dom';
 import {Login} from "./Login/Login";
 
 
 // component
 const App = memo(() => {
 
-        // state
         const status = useSelector<rootReducerType, StatusesType>(state => state.app.status)
+        const initialized = useSelector<rootReducerType, boolean>(state => state.app.isInitialized)
+        const dispatch = useDispatch()
 
-        // return
+        useEffect(() => {
+            dispatch(initializedAppTC())
+        }, [])
+
+        if (!initialized) {
+            return (
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: '100%',
+                    height: '90vh'
+                }}>
+                    <CircularProgress/>
+                </div>
+            )
+        }
+
         return (
             <div className="App">
                 <AppBar position="static">
@@ -41,7 +59,9 @@ const App = memo(() => {
                         <IconButton>
                             <Brightness4Icon color="disabled"/>
                         </IconButton>
-                        <Button color="inherit">Login</Button>
+                        <NavLink to={'/login'}>
+                            <Button color="inherit">Login</Button>
+                        </NavLink>
                     </Toolbar>
                     {status === 'loading' && <LinearProgress/>}
                     {/*HEADER*/}

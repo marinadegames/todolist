@@ -1,23 +1,22 @@
 // imports
-
-// types
-// export type TasksStateType = {
-//     [key: string]: Array<TaskType>
-// }
-
-// initial state
 import {Dispatch} from "react";
 import {authAPI, LoginParamsType} from "../API/todolists-API";
 import {setErrorAC, setStatusAC} from "./appReducer";
 
-let initialState = {}
 
-// types
-// export type TasksActionType =
+// initial state
+
+let initialState: InitialStateType = {
+    isLoggedIn: false
+
+}
+
 
 // reducer
-export const loginReducer = (state = initialState, action: any): any => {
+export const authReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
+        case "login/SET_IS_LOGGED_IN":
+            return {...state, isLoggedIn: action.value}
         default:
             return state
     }
@@ -25,9 +24,7 @@ export const loginReducer = (state = initialState, action: any): any => {
 
 
 // action creators
-export const loginAC = () => {
-
-}
+export const setIsLoggedInAC = (value: boolean) => ({type: 'login/SET_IS_LOGGED_IN', value} as const)
 
 // thunks
 export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<any>) => {
@@ -35,7 +32,7 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<any>) => {
     authAPI.login(data)
         .then(resp => {
             if (resp.data.resultCode === 0) {
-
+                dispatch(setIsLoggedInAC(true))
                 dispatch(setStatusAC('succeeded'))
             } else {
                 if (resp.data.messages.length) {
@@ -51,3 +48,10 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<any>) => {
         })
     dispatch(setStatusAC('idle'))
 }
+
+
+// types
+type InitialStateType = {
+    isLoggedIn: boolean
+}
+type ActionsType = ReturnType<typeof setIsLoggedInAC>
