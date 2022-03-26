@@ -75,8 +75,10 @@ const App = memo(() => {
                         }
 
                     </Toolbar>
-                    {status === 'loading' && <LinearProgress/>}
+                    {status === 'loading' && <LinearProgress sx={{borderRadius: '100px'}}/>}
                 </AppBar>
+
+
                 {/*HEADER*/}
 
                 <Routes>

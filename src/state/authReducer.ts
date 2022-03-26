@@ -31,7 +31,7 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<any>) => {
         .then(resp => {
             if (resp.data.resultCode === 0) {
                 dispatch(setIsLoggedInAC(true))
-                dispatch(setStatusAC('succeeded'))
+                dispatch(setStatusAC('idle'))
             } else {
                 if (resp.data.messages.length) {
                     dispatch(setErrorAC(resp.data.messages[0]))
