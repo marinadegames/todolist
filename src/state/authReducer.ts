@@ -2,6 +2,7 @@
 import {Dispatch} from "react";
 import {authAPI, LoginParamsType} from "../API/todolists-API";
 import {setErrorAC, setStatusAC} from "./appReducer";
+import {createSlice} from "@reduxjs/toolkit";
 
 
 // initial state
@@ -10,11 +11,22 @@ let initialState: InitialStateTypeAuth = {
 }
 
 
+const slice = createSlice({
+    name: 'auth',
+    initialState: initialState,
+    reducers: {
+
+    }
+})
+
+slice.reducer
+
 // reducer
 export const authReducer = (state = initialState, action: ActionsTypeAuth): InitialStateTypeAuth => {
     switch (action.type) {
         case "login/SET_IS_LOGGED_IN":
-            return {...state, isLoggedIn: action.value}
+            return {...state, isLoggedIn: action.value} // immerJS
+
         default:
             return state
     }
