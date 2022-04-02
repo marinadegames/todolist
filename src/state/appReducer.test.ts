@@ -1,22 +1,32 @@
 // imports
-import {appReducer, setErrorAC, setStatusAC} from "./appReducer";
+import {appReducer, setAppInitializedAC, setErrorAC, setStatusAC} from "./appReducer";
 
-// // start State
+type InitStateType = {
+    status: 'idle',
+    error: null,
+    isInitialized: false
+}
+let startState: InitStateType
 
-
+// init State
 beforeEach(() => {
-    // startState = {
-    //     error: null,
-    //     status: 'idle'
-    // }
+    startState  = {
+        status: 'idle',
+        error: null,
+        isInitialized: false
+    }
 })
-//
-// // tests
-// test('correct error message should be set', () => {
-//     const endState = appReducer(startState, setErrorAC('error'))
-//     expect(endState.error).toBe('error')
-// });
-// test('correct status should be correct', () => {
-//     const endState = appReducer(startState, setStatusAC('loading'))
-//     expect(endState.status).toBe('loading')
-// })
+
+// tests
+test('error message should be set', () => {
+    const endState = appReducer(startState, setErrorAC({error: 'error'}))
+    expect(endState.error).toBe('error')
+});
+test('status should be correct', () => {
+    const endState = appReducer(startState, setStatusAC({status: 'loading'}))
+    expect(endState.status).toBe('loading')
+})
+test('is initialized app should be correct', () => {
+    const endState = appReducer(startState, setAppInitializedAC({value: true}))
+    expect(endState.isInitialized).toBe(true)
+})

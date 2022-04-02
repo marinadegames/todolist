@@ -21,7 +21,7 @@ const slice = createSlice({
             if (index > -1) state.splice(index, 1)
         },
         addToDoListAC(state, action: PayloadAction<{ todolist: TodolistType }>) {
-            state.push({...action.payload.todolist, filter: 'all'})
+            state.unshift({...action.payload.todolist, filter: 'all'})
         },
         changeToDoListTitleAC(state, action: PayloadAction<{ id: string, title: string }>) {
             const index = state.findIndex(tl => tl.id === action.payload.id)
@@ -39,13 +39,7 @@ const slice = createSlice({
 
 // reducer
 export const toDoListsReducer = slice.reducer;
-export const {
-    removeTodolistAC,
-    addToDoListAC,
-    changeToDoListTitleAC,
-    changeToDoListFilterAC,
-    setTodolistsAC
-} = slice.actions
+export const {removeTodolistAC, addToDoListAC, changeToDoListTitleAC, changeToDoListFilterAC, setTodolistsAC} = slice.actions
 
 // thunks
 export const fetchTodolistsTC = () => async (dispatch: Dispatch) => {
