@@ -19,7 +19,7 @@ const slice = createSlice({
     }
 })
 
-slice.reducer
+// slice.reducer
 
 // reducer
 export const authReducer = (state = initialState, action: ActionsTypeAuth): InitialStateTypeAuth => {
