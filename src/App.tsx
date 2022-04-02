@@ -32,11 +32,11 @@ const App = memo(() => {
 
         useEffect(() => {
             dispatch(initializedAppTC())
-        }, [])
+        }, [dispatch])
 
         const logoutHandler = useCallback(() => {
             dispatch(logoutTC())
-        }, [])
+        }, [dispatch])
 
 
         if (!initialized) {

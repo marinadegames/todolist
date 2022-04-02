@@ -35,7 +35,7 @@ export const TodolistsList = memo(() => {
     }, [dispatch])
 
     const changeFilter = useCallback((value: FilterValuesType, todolistId: string) => {
-        dispatch(changeToDoListFilterAC(todolistId, value))
+        dispatch(changeToDoListFilterAC({id: todolistId, filter: value}))
     }, [dispatch])
 
     const changeToDoListTitle = useCallback((todolistId: string, title: string) => {

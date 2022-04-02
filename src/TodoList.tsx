@@ -35,7 +35,7 @@ export const Todolist = React.memo((props: PropsType) => {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(fetchTasksTC(props.id))
-    }, [props.id])
+    }, [props.id, dispatch])
 
 
     const removeTodolist = () => props.removeTodolist(props.id)
@@ -54,7 +54,7 @@ export const Todolist = React.memo((props: PropsType) => {
             tId,
             newValueCheck ? TaskStatuses.Completed : TaskStatuses.New,
             props.id)
-    }, [])
+    }, [props])
 
     const callbackUpdateTask = (tId: string, title: string) => {
         props.updateTask(props.id, tId, title)
@@ -65,7 +65,7 @@ export const Todolist = React.memo((props: PropsType) => {
 
     const callbackAddTask = useCallback((newTitle: string) => {
         props.addTask(newTitle, props.id)
-    }, [props.addTask, props.id])
+    }, [props])
 
 
     // FILTER

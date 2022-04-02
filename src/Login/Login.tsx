@@ -63,8 +63,8 @@ export const Login = memo(() => {
                         <FormLabel style={{textAlign: "center", margin: '70px 0 0 0'}}>
                             <Typography variant={'h4'}>Hello, friend!</Typography>
                             <Typography variant={'h6'}>To log in get registered
-                                <a href={'https://social-network.samuraijs.com/'}
-                                   target={'_blank'}> here
+                                <a href={'https://social-network.samuraijs.com/'}>
+                                    here
                                 </a>
                             </Typography>
                             <Typography variant={'h6'}>or use common test account credentials:</Typography>

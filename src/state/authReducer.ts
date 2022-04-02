@@ -1,70 +1,57 @@
 // imports
-import {Dispatch} from "react";
+
 import {authAPI, LoginParamsType} from "../API/todolists-API";
 import {setErrorAC, setStatusAC} from "./appReducer";
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, Dispatch, PayloadAction} from "@reduxjs/toolkit";
 
 
 // initial state
-let initialState: InitialStateTypeAuth = {
+let initialState = {
     isLoggedIn: false
 }
-
-
 const slice = createSlice({
     name: 'auth',
     initialState: initialState,
     reducers: {
-
+        setIsLoggedInAC(state, action: PayloadAction<{value: boolean}>){
+            state.isLoggedIn = action.payload.value
+        }
     }
 })
 
-// slice.reducer
-
 // reducer
-export const authReducer = (state = initialState, action: ActionsTypeAuth): InitialStateTypeAuth => {
-    switch (action.type) {
-        case "login/SET_IS_LOGGED_IN":
-            return {...state, isLoggedIn: action.value} // immerJS
-
-        default:
-            return state
-    }
-}
-
-
-// action creators
-export const setIsLoggedInAC = (value: boolean) => ({type: 'login/SET_IS_LOGGED_IN', value} as const)
+export const authReducer = slice.reducer;
+export const {setIsLoggedInAC} = slice.actions
 
 // thunks
-export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<any>) => {
-    dispatch(setStatusAC('loading'))
+export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch) => {
+    dispatch(setStatusAC({status: 'loading'}))
     authAPI.login(data)
         .then(resp => {
             if (resp.data.resultCode === 0) {
-                dispatch(setIsLoggedInAC(true))
-                dispatch(setStatusAC('idle'))
+                dispatch(setIsLoggedInAC({value: true}))
+                dispatch(setStatusAC({status: 'idle'}))
             } else {
                 if (resp.data.messages.length) {
-                    dispatch(setErrorAC(resp.data.messages[0]))
+                    dispatch(setErrorAC({error: resp.data.messages[0]}))
                 } else {
-                    dispatch(setErrorAC('some error'))
+                    dispatch(setErrorAC({error: 'some error'}))
                 }
             }
         })
         .catch(error => {
             console.warn(error)
-            dispatch(setStatusAC('idle'))
+            dispatch(setStatusAC({status: 'idle'}))
         })
-    dispatch(setStatusAC('idle'))
+    dispatch(setStatusAC({status: 'idle'}))
 }
-export const logoutTC = () => (dispatch: Dispatch<any>) => {
-    dispatch(setStatusAC('loading'))
+export const logoutTC = () => (dispatch: Dispatch) => {
+    dispatch(setStatusAC({status: 'loading'}))
     authAPI.logout()
         .then(resp => {
             if (resp.data.resultCode === 0) {
-                dispatch(setIsLoggedInAC(false))
-                dispatch(setStatusAC('succeeded'))
+                dispatch(setIsLoggedInAC({value: false}))
+                dispatch(setStatusAC({status: 'succeeded'}))
             }
         })
         .catch(error => {
@@ -72,9 +59,3 @@ export const logoutTC = () => (dispatch: Dispatch<any>) => {
         })
 }
 
-
-// types
-type InitialStateTypeAuth = {
-    isLoggedIn: boolean
-}
-type ActionsTypeAuth = any
